@@ -952,7 +952,7 @@
   <author>
    <name>disconcision</name></author>
   <content type="html">
-&lt;p&gt;This is a mini-series of six entries which together introduce using quotation and pattern matching to represent and transform syntax in Racket. The focus is on quasiquotation; part 6 will assume you have a vague grasp of what pattern matching is, although I might fill in this gap latter through a tutorial on implementing pattern matching.&lt;/p&gt;
+&lt;p&gt;This is a mini-series of six entries which together introduce using quotation and pattern matching to represent and transform syntax in Racket. The focus is on quasiquotation; part 6 will assume you have a vague grasp of what pattern matching is, although I might fill in this gap later through a tutorial on implementing pattern matching.&lt;/p&gt;
 
 &lt;ol&gt;
  &lt;li&gt;&lt;a href="quasiquotation-part-1-quote.html"&gt;Quasiquotation Part 1: Quote&lt;/a&gt;&lt;/li&gt;
