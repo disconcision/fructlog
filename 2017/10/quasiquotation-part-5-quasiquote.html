@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Quasiquotation Part 5: Quasiquote!</title>
+    <meta name="description" content="We introduce a new form, quasiquote, sugared as &quot;`&quot;. The first and most important thing to note about quasiquote is that, if a quasiquote form doesn't contain any unquotes, it behaves exactly like quote:                     1 2              (quasiquote (i...">
+    <meta name="author"      content="The Unknown Author">
+    <meta name="keywords"    content="racket, Author: disconcision">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <link rel="icon"      href="/favicon.ico">
+    <link rel="canonical" href="http://www.example.com/2017/10/quasiquotation-part-5-quasiquote.html">
+    <link rel="next" href="/2017/10/quasiquotation-part-4-unquote.html">
+    <link rel="prev" href="/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/css/scribble.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <!-- Feeds -->
+    <link rel="alternate" type="application/atom+xml"
+          href="/feeds/all.atom.xml" title="Atom Feed">
+    <link rel="alternate" type="application/rss+xml"
+          href="/feeds/all.rss.xml" title="RSS Feed">
+    <!-- JS -->
+    <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-xxxxx', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <!-- A standard Twitter Bootstrap nav bar -->
+    <header class="navbar navbar-default navbar-inverse"
+            role="banner">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button"
+                  class="navbar-toggle"
+                  data-toggle="collapse"
+                  data-target=".our-nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/index.html" class="navbar-brand">fructlog</a>
+        </div>
+        <div class="collapse navbar-collapse our-nav-collapse"
+             role="navigation">
+          <ul class="nav navbar-nav">
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Tags <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/index.html">All Posts</a></li>
+
+<li><a href="/tags/Author-disconcision.html">Author: disconcision</a></li>
+
+<li><a href="/tags/racket.html">racket</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/About.html">About</a>
+            </li> 
+            <li><a href="/feeds/all.atom.xml">Atom</a></li>
+            <li><a href="/feeds/all.rss.xml">RSS</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+
+        <!-- Main column -->
+        <div id="content" class="col-md-12">
+
+
+
+
+
+          <article>
+  <header>
+    <h1>Quasiquotation Part 5: Quasiquote!</h1>
+    <p class='date-and-tags'>
+<time datetime="2017-10-25" pubdate="true">2017-10-25</time> :: <span class="tags"><a href="/tags/racket.html">racket</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-disconcision.html">disconcision</a></span></p>
+  </header>
+
+<p>We introduce a new form, quasiquote, sugared as "`". The first and most important thing to note about quasiquote is that, if a quasiquote form doesn&rsquo;t contain any unquotes, it behaves exactly like quote:</p>
+
+<div class="brush: racket">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="p">(</span><span class="k"><a href="http://docs.racket-lang.org/reference/quasiquote.html#(form._((lib._racket/private/letstx-scheme..rkt)._quasiquote))" style="color: inherit">quasiquote</a></span> <span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="ss">a</span> <span class="ss">b</span> <span class="ss">c</span><span class="p">))</span>
+<span class="nb"><a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit">&gt;</a></span> <span class="o">'</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="ss">a</span> <span class="ss">b</span> <span class="ss">c</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<div class="brush: racket">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="ss">a</span> <span class="ss">b</span> <span class="ss">c</span><span class="p">)</span>
+<span class="nb"><a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit">&gt;</a></span> <span class="o">'</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="ss">a</span> <span class="ss">b</span> <span class="ss">c</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>If we use an unquote within quasiquote, the effect is precisely what we tried to achieve above: unquoted portions within a quasiquotation are evaluated normally. BUT within a /quoted form/, both unquote AND quasiquote are just treated as symbol literals, and have no effect. Note that this is not a special case for quote; quasiquote and unquote are just treated like everything else!</p>
+
+<div class="brush: racket">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="p">(</span><span class="k"><a href="http://docs.racket-lang.org/reference/define.html#(form._((lib._racket/private/base..rkt)._define))" style="color: inherit">define</a></span> <span class="n">a</span> <span class="no">#t</span><span class="p">)</span>
+<span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="n">a</span> <span class="o">,</span><span class="n">a</span> <span class="o">,</span><span class="n">a</span><span class="p">)</span>
+<span class="nb"><a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit">&gt;</a></span> <span class="p">(</span><span class="k"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="no">#t</span> <span class="no">#t</span> <span class="no">#t</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<div class="brush: racket">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="o">'</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">a</span><span class="p">)</span>
+<span class="nb"><a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit">&gt;</a></span> <span class="o">'</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">a</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<div class="brush: racket">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="o">'`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">a</span><span class="p">)</span>
+<span class="nb"><a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit">&gt;</a></span> <span class="o">'`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">a</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>There is one additional complexity with quasiquote, which you probably don&rsquo;t have to worry about here, but is worth thinking about for the sake of completeness: What happens if we use a quasiquote within quasiquote?</p>
+
+<div class="brush: racket">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="p">(</span><span class="k"><a href="http://docs.racket-lang.org/reference/define.html#(form._((lib._racket/private/base..rkt)._define))" style="color: inherit">define</a></span> <span class="n">a</span> <span class="o">'</span><span class="ss">b</span><span class="p">)</span>
+<span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="n">a</span> <span class="no">#t</span> <span class="no">#f</span><span class="p">)</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb"><a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit">&gt;</a></span> <span class="n">????</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>There are two ways we might think about implementing this. The first (<strong>NOT THE WAY IT ACTUALLY WORKS IN RACKET</strong>) is simply to ignore nested quasiquotes:</p>
+
+<div class="brush: racket">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="p">(</span><span class="k"><a href="http://docs.racket-lang.org/reference/define.html#(form._((lib._racket/private/base..rkt)._define))" style="color: inherit">define</a></span> <span class="n">a</span> <span class="o">'</span><span class="ss">b</span><span class="p">)</span>
+<span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="n">a</span> <span class="no">#t</span> <span class="no">#f</span><span class="p">)</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb"><a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit">&gt;</a></span> <span class="o">'</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="ss">b</span> <span class="no">#t</span> <span class="no">#f</span><span class="p">)</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>After all, why would we want to deal with nested levels of quasiquotation? What would it actually even mean? However, this is NOT the implementation used in scheme/racket. The reason is that we want to use quasiquotation for macros, for rewriting code, and what&rsquo;s even better than rewriting code? Rewriting code that rewrites code! That is, we want the ability to use quasiquoted templates which, when evaluated, themselves return quasiquoted templates.</p>
+
+<p>Thus, we have the notion of &lsquo;levels&rsquo; of quasiquotation. In the example above, the unquote containing &ldquo;a&rdquo; is under two levels of quasiquotation. Therefore it is not evaluated:</p>
+
+<div class="brush: racket">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="p">(</span><span class="k"><a href="http://docs.racket-lang.org/reference/define.html#(form._((lib._racket/private/base..rkt)._define))" style="color: inherit">define</a></span> <span class="n">a</span> <span class="o">'</span><span class="ss">b</span><span class="p">)</span>
+<span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="n">a</span> <span class="no">#t</span> <span class="no">#f</span><span class="p">)</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb"><a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit">&gt;</a></span> <span class="o">'</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="ss">a</span> <span class="no">#t</span> <span class="no">#f</span><span class="p">)</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>If instead we unquoted a twice, we&rsquo;d get the following:</p>
+
+<div class="brush: racket">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="p">(</span><span class="k"><a href="http://docs.racket-lang.org/reference/define.html#(form._((lib._racket/private/base..rkt)._define))" style="color: inherit">define</a></span> <span class="n">a</span> <span class="o">'</span><span class="ss">b</span><span class="p">)</span>
+<span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,,</span><span class="n">a</span> <span class="no">#t</span> <span class="no">#f</span><span class="p">)</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb"><a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit">&gt;</a></span> <span class="o">'</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="ss">b</span> <span class="no">#t</span> <span class="no">#f</span><span class="p">)</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>Note that we&rsquo;ve preserved both the nested quasiquote AND one level of unquote around &ldquo;b&rdquo;. So what we&rsquo;re left with could itself be used as a template for further processing.</p>
+
+<p>When you&rsquo;re parsing code in your head, think about it like this: Regular code (not inside a quote or quasiquote form) is at &lsquo;quasiquote level 0&rsquo;. This means it is evaluated like&hellip;. wait for it&hellip; regular code.</p>
+
+<p>If we&rsquo;re reading code from the outside-in, every time we encounter a quasiquote, we increment the quasiquote level by 1, and every time we encounter and unquote, we decrement by one. If the quasiquote level is greater than 0, we interpret what we see (including symbols, lists, quotes, and quasiquotes) as literals. If it reaches 0, we evaluate normally. If it goes under 0, like if we found an unquote without any surrounding quasiquote, that generates an error.</p>
+
+<p>That&rsquo;s basically the full picture of how Racket treats quasiquotation! But like I said, for use at a single level of &lsquo;meta&rsquo; you only need to worry about quasiquote levels 0 (business as usual) and 1 (literalize until unquoted).</p>
+
+<p>Next up: The stunning conclusion: <a href="quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html">Quasiquotation Part 6: Quasiquotation in the context of Racket/Match</a></p>
+  <footer>
+    <!--
+    <script type="text/javascript">
+      !function(d,s,id){
+          var js,fjs=d.getElementsByTagName(s)[0];
+          if(!d.getElementById(id)){
+              js=d.createElement(s);
+              js.id=id;
+              js.src="//platform.twitter.com/widgets.js";
+              fjs.parentNode.insertBefore(js,fjs);
+          }
+      }(document,"script","twitter-wjs");
+    </script>
+    <a href="https://twitter.com/share"
+       class="twitter-share-button"
+       data-url="http://www.example.com/2017/10/quasiquotation-part-5-quasiquote.html"
+       data-dnt="true">
+      "Tweet"</a>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <g:plusone size="medium" href="http://www.example.com/2017/10/quasiquotation-part-5-quasiquote.html"></g:plusone>
+    <script type="text/javascript">
+      var disqus_shortname = 'shortname';
+      (function() {
+          var dsq = document.createElement('script');
+          dsq.type = 'text/javascript';
+          dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <div id="disqus_thread"></div>
+    -->
+    <ul class="pager">
+    <li class="previous">
+      <a href="/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html">&larr; <em>Quasiquotation Part 6: Quasiquotation in the context of Racket/Match</em></a>
+    </li>
+    <li class="next">
+      <a href="/2017/10/quasiquotation-part-4-unquote.html"><em>Quasiquotation Part 4: Unquote?</em> &rarr;</a>
+    </li>
+    </ul>
+  </footer>
+</article>
+        </div>
+      </div>
+      <footer>
+          <p>2017. very few rights reserved.</p>
+          <!--
+        <hr />
+        <p><a href="https://twitter.com/racketlang"
+              class="twitter-follow-button"
+              data-show-count="false"
+              data-lang="en">
+             "Follow RacketLang"
+           </a>
+           <script type="text/javascript">
+             !function(d,s,id){
+                 var js,fjs=d.getElementsByTagName(s)[0];
+                 if(!d.getElementById(id)){
+                     js=d.createElement(s);
+                     js.id=id;
+                     js.src="//platform.twitter.com/widgets.js";
+                     fjs.parentNode.insertBefore(js,fjs);
+                 }
+             }(document,"script","twitter-wjs");
+           </script></p>
+        <p>Site generated
+        by <a href="https://github.com/greghendershott/frog">Frog</a>,
+        the <strong>fr</strong>ozen bl<strong>og</strong> tool.</p>
+        <p>Using <a href="http://twitter.github.com/bootstrap/index.html">Bootstrap</a>.</p>
+        <p><em>Your legal notice here</em>.</p>
+        -->
+      </footer>
+    </div>
+    <!-- </body> JS -->
+    <script type="text/javascript" src="//code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

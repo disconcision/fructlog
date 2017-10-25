@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?> 
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
- <title type="text">My Blog: My Blog</title>
- <link rel="self" href="http://www.example.com/feeds/all.atom.xml" />
- <link href="http://www.example.com/index.html" />
- <id>urn:http-www-example-com:-index-html</id>
- <updated>2017-10-25T22:09:23Z</updated>
- <entry>
-  <title type="text">Quasiquotation Part 6: Quasiquotation in the context of Racket/Match</title>
-  <link rel="alternate" href="http://www.example.com/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:http-www-example-com:-2017-10-quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match-html</id>
-  <published>2017-10-25T22:09:23Z</published>
-  <updated>2017-10-25T22:09:23Z</updated>
-  <author>
-   <name>disconcision</name></author>
-  <content type="html">
+<rss version="2.0">
+ <channel>
+  <title>My Blog: Posts tagged 'racket'</title>
+  <description>My Blog: Posts tagged 'racket'</description>
+  <link>http://www.example.com/tags/racket.html</link>
+  <lastBuildDate>Wed, 25 Oct 2017 22:09:23 UT</lastBuildDate>
+  <pubDate>Wed, 25 Oct 2017 22:09:23 UT</pubDate>
+  <ttl>1800</ttl>
+  <item>
+   <title>Quasiquotation Part 6: Quasiquotation in the context of Racket/Match</title>
+   <link>http://www.example.com/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match-html</guid>
+   <pubDate>Wed, 25 Oct 2017 22:09:23 UT</pubDate>
+   <author>disconcision</author>
+   <description>
 &lt;h4 id="a-brief-introduction-to-match"&gt;A brief introduction to match:&lt;/h4&gt;
 
 &lt;div class="brush: racket"&gt;
@@ -188,16 +188,14 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;And with that, we&amp;rsquo;re done! If you&amp;rsquo;ve made it this far, you now know just about everything you need to implement quasiquotation yourself. All that stands in your way is the &lt;a href="http://www.greghendershott.com/fear-of-macros/all.html"&gt;Fear of Macros&lt;/a&gt;.&lt;/p&gt;</content></entry>
- <entry>
-  <title type="text">Quasiquotation Part 5: Quasiquote!</title>
-  <link rel="alternate" href="http://www.example.com/2017/10/quasiquotation-part-5-quasiquote.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:http-www-example-com:-2017-10-quasiquotation-part-5-quasiquote-html</id>
-  <published>2017-10-25T21:50:15Z</published>
-  <updated>2017-10-25T21:50:15Z</updated>
-  <author>
-   <name>disconcision</name></author>
-  <content type="html">
+&lt;p&gt;And with that, we&amp;rsquo;re done! If you&amp;rsquo;ve made it this far, you now know just about everything you need to implement quasiquotation yourself. All that stands in your way is the &lt;a href="http://www.greghendershott.com/fear-of-macros/all.html"&gt;Fear of Macros&lt;/a&gt;.&lt;/p&gt;</description></item>
+  <item>
+   <title>Quasiquotation Part 5: Quasiquote!</title>
+   <link>http://www.example.com/2017/10/quasiquotation-part-5-quasiquote.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-5-quasiquote-html</guid>
+   <pubDate>Wed, 25 Oct 2017 21:50:15 UT</pubDate>
+   <author>disconcision</author>
+   <description>
 &lt;p&gt;We introduce a new form, quasiquote, sugared as "`". The first and most important thing to note about quasiquote is that, if a quasiquote form doesn&amp;rsquo;t contain any unquotes, it behaves exactly like quote:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
@@ -374,16 +372,14 @@
 
 &lt;p&gt;That&amp;rsquo;s basically the full picture of how Racket treats quasiquotation! But like I said, for use at a single level of &amp;lsquo;meta&amp;rsquo; you only need to worry about quasiquote levels 0 (business as usual) and 1 (literalize until unquoted).&lt;/p&gt;
 
-&lt;p&gt;Next up: The stunning conclusion: &lt;a href="quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html"&gt;Quasiquotation Part 6: Quasiquotation in the context of Racket/Match&lt;/a&gt;&lt;/p&gt;</content></entry>
- <entry>
-  <title type="text">Quasiquotation Part 4: Unquote?</title>
-  <link rel="alternate" href="http://www.example.com/2017/10/quasiquotation-part-4-unquote.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:http-www-example-com:-2017-10-quasiquotation-part-4-unquote-html</id>
-  <published>2017-10-25T21:41:22Z</published>
-  <updated>2017-10-25T21:41:22Z</updated>
-  <author>
-   <name>disconcision</name></author>
-  <content type="html">
+&lt;p&gt;Next up: The stunning conclusion: &lt;a href="quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html"&gt;Quasiquotation Part 6: Quasiquotation in the context of Racket/Match&lt;/a&gt;&lt;/p&gt;</description></item>
+  <item>
+   <title>Quasiquotation Part 4: Unquote?</title>
+   <link>http://www.example.com/2017/10/quasiquotation-part-4-unquote.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-4-unquote-html</guid>
+   <pubDate>Wed, 25 Oct 2017 21:41:22 UT</pubDate>
+   <author>disconcision</author>
+   <description>
 &lt;p&gt;First, let&amp;rsquo;s review how to (mentally) parse code when there are quote forms about.&lt;/p&gt;
 
 &lt;p&gt;When encountering (a wild) symbol: Let&amp;rsquo;s say you see the symbol &amp;ldquo;a&amp;rdquo;. Are you inside a quote form? Then you&amp;rsquo;re looking at (quote a), a symbol literal. Otherwise, are you in a binding form like define? If so, you&amp;rsquo;re at a binding site for the identifier a. Otherwise, you&amp;rsquo;re looking at a(n implicit) variable reference form, (var-ref a).&lt;/p&gt;
@@ -494,16 +490,14 @@
 
 &lt;p&gt;The unquoted segments would be evaluated normally, producing either a value or an error. So we&amp;rsquo;ll have to something &lt;em&gt;just slightly&lt;/em&gt; more complicated&amp;hellip;&lt;/p&gt;
 
-&lt;p&gt;Next up: &lt;a href="quasiquotation-part-5-quasiquote.html"&gt;Quasiquotation Part 5: Quasiquote!&lt;/a&gt;&lt;/p&gt;</content></entry>
- <entry>
-  <title type="text">Quasiquotation Part 3: Implicit Operations in a Lispy Context</title>
-  <link rel="alternate" href="http://www.example.com/2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:http-www-example-com:-2017-10-quasiquotation-part-3-implicit-operations-in-a-lispy-context-html</id>
-  <published>2017-10-25T21:29:04Z</published>
-  <updated>2017-10-25T21:29:04Z</updated>
-  <author>
-   <name>disconcision</name></author>
-  <content type="html">
+&lt;p&gt;Next up: &lt;a href="quasiquotation-part-5-quasiquote.html"&gt;Quasiquotation Part 5: Quasiquote!&lt;/a&gt;&lt;/p&gt;</description></item>
+  <item>
+   <title>Quasiquotation Part 3: Implicit Operations in a Lispy Context</title>
+   <link>http://www.example.com/2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-3-implicit-operations-in-a-lispy-context-html</guid>
+   <pubDate>Wed, 25 Oct 2017 21:29:04 UT</pubDate>
+   <author>disconcision</author>
+   <description>
 &lt;p&gt;In standard Racket code, symbols are most typically employed as identifiers. The first use of an identifier is to bind a value as a variable:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
@@ -740,16 +734,14 @@
 
 &lt;p&gt;Next time we&amp;rsquo;ll look at expanding quote to describe related pieces of source code in terms of templates.&lt;/p&gt;
 
-&lt;p&gt;Next up: &lt;a href="quasiquotation-part-4-unquote.html"&gt;Quasiquotation Part 4: Unquote?&lt;/a&gt;&lt;/p&gt;</content></entry>
- <entry>
-  <title type="text">Quasiquotation Part 2: An interlude on implicit operations</title>
-  <link rel="alternate" href="http://www.example.com/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:http-www-example-com:-2017-10-quasiquotation-part-2-an-interlude-on-implicit-operations-html</id>
-  <published>2017-10-25T21:18:41Z</published>
-  <updated>2017-10-25T21:18:41Z</updated>
-  <author>
-   <name>disconcision</name></author>
-  <content type="html">
+&lt;p&gt;Next up: &lt;a href="quasiquotation-part-4-unquote.html"&gt;Quasiquotation Part 4: Unquote?&lt;/a&gt;&lt;/p&gt;</description></item>
+  <item>
+   <title>Quasiquotation Part 2: An interlude on implicit operations</title>
+   <link>http://www.example.com/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-2-an-interlude-on-implicit-operations-html</guid>
+   <pubDate>Wed, 25 Oct 2017 21:18:41 UT</pubDate>
+   <author>disconcision</author>
+   <description>
 &lt;p&gt;An interlude: Implicit operations&lt;/p&gt;
 
 &lt;p&gt;You see implicit operations all the time in math notation, so often it&amp;rsquo;s easy to forget they&amp;rsquo;re there. In fact, the fact that we can (usually) forget them is kind of the point. Consider the following inoffensive term (in standard mathematical notation):&lt;/p&gt;
@@ -784,16 +776,14 @@
 
 &lt;p&gt;Ugly and inconvenient, but at least it&amp;rsquo;s clear exactly what we mean.&lt;/p&gt;
 
-&lt;p&gt;Next up: &lt;a href="quasiquotation-part-3-implicit-operations-in-a-lispy-context.html"&gt;Quasiquotation Part 3: Implicit Operations in a Lispy Context&lt;/a&gt;&lt;/p&gt;</content></entry>
- <entry>
-  <title type="text">Quasiquotation Part 1: Quote</title>
-  <link rel="alternate" href="http://www.example.com/2017/10/quasiquotation-part-1-quote.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:http-www-example-com:-2017-10-quasiquotation-part-1-quote-html</id>
-  <published>2017-10-25T19:39:05Z</published>
-  <updated>2017-10-25T19:39:05Z</updated>
-  <author>
-   <name>disconcision</name></author>
-  <content type="html">
+&lt;p&gt;Next up: &lt;a href="quasiquotation-part-3-implicit-operations-in-a-lispy-context.html"&gt;Quasiquotation Part 3: Implicit Operations in a Lispy Context&lt;/a&gt;&lt;/p&gt;</description></item>
+  <item>
+   <title>Quasiquotation Part 1: Quote</title>
+   <link>http://www.example.com/2017/10/quasiquotation-part-1-quote.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-1-quote-html</guid>
+   <pubDate>Wed, 25 Oct 2017 19:39:05 UT</pubDate>
+   <author>disconcision</author>
+   <description>
 &lt;p&gt;Before there was Quasiquote, there was Quote. Quote is a fundamental part of every lispy language, including Racket. What does it do for us? It allows us to concisely represent s-expression-based data; in particular, source code. Specifically, it allows us to &lt;em&gt;literalize&lt;/em&gt; source code, by contextualizing what we &lt;em&gt;mean&lt;/em&gt; when we use &lt;em&gt;symbols&lt;/em&gt; and &lt;em&gt;lists&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;What we want to do is be able to represent source code &lt;em&gt;within&lt;/em&gt; source code. We need a method of representation, and the simplest way to represent a thing is just to present the thing itself. Unfortunately, this representation is already taken! Say we simply provide a piece of code:&lt;/p&gt;
@@ -942,16 +932,14 @@
 
 &lt;p&gt;And that&amp;rsquo;s really all there is to quote. Now it likely seems like we&amp;rsquo;ve gone a long way to get almost nothing at all. We can summarize what&amp;rsquo;s gone before as &amp;ldquo;if you want to refer to the code itself instead of its result under evaluation, stick a &amp;rsquo; in front of it&amp;rdquo;. This is mostly a fair assessment, but let&amp;rsquo;s more carefully examine what we&amp;rsquo;ve gained.&lt;/p&gt;
 
-&lt;p&gt;Next up: &lt;a href="quasiquotation-part-2-an-interlude-on-implicit-operations.html"&gt;Quasiquotation Part 2: An interlude on implicit operations&lt;/a&gt;&lt;/p&gt;</content></entry>
- <entry>
-  <title type="text">Using Quasiquotation and Pattern Matching for Syntax Rewriting</title>
-  <link rel="alternate" href="http://www.example.com/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:http-www-example-com:-2017-10-using-quasiquotation-and-pattern-matching-for-syntax-rewriting-html</id>
-  <published>2017-10-25T17:56:12Z</published>
-  <updated>2017-10-25T17:56:12Z</updated>
-  <author>
-   <name>disconcision</name></author>
-  <content type="html">
+&lt;p&gt;Next up: &lt;a href="quasiquotation-part-2-an-interlude-on-implicit-operations.html"&gt;Quasiquotation Part 2: An interlude on implicit operations&lt;/a&gt;&lt;/p&gt;</description></item>
+  <item>
+   <title>Using Quasiquotation and Pattern Matching for Syntax Rewriting</title>
+   <link>http://www.example.com/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-using-quasiquotation-and-pattern-matching-for-syntax-rewriting-html</guid>
+   <pubDate>Wed, 25 Oct 2017 17:56:12 UT</pubDate>
+   <author>disconcision</author>
+   <description>
 &lt;p&gt;This is a mini-series of six entries which together introduce using quotation and pattern matching to represent and transform syntax in Racket. The focus is on quasiquotation; part 6 will assume you have a vague grasp of what pattern matching is, although I might fill in this gap latter through a tutorial on implementing pattern matching.&lt;/p&gt;
 
 &lt;ol&gt;
@@ -960,4 +948,4 @@
  &lt;li&gt;&lt;a href="quasiquotation-part-3-implicit-operations-in-a-lispy-context.html"&gt;Quasiquotation Part 3: Implicit Operations in a Lispy Context&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="quasiquotation-part-4-unquote.html"&gt;Quasiquotation Part 4: Unquote?&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="quasiquotation-part-5-quasiquote.html"&gt;Quasiquotation Part 5: Quasiquote!&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html"&gt;Quasiquotation Part 6: Quasiquotation in the context of Racket/Match&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;</content></entry></feed>
+ &lt;li&gt;&lt;a href="quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html"&gt;Quasiquotation Part 6: Quasiquotation in the context of Racket/Match&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;</description></item></channel></rss>

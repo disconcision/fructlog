@@ -1,2 +1,8 @@
-http://www.example.com/2012/01/a-2012-blog-post.html
+http://www.example.com/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html
+http://www.example.com/2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html
+http://www.example.com/2017/10/quasiquotation-part-4-unquote.html
+http://www.example.com/2017/10/quasiquotation-part-5-quasiquote.html
+http://www.example.com/2017/10/quasiquotation-part-1-quote.html
+http://www.example.com/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html
+http://www.example.com/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html
 http://www.example.com/About.html

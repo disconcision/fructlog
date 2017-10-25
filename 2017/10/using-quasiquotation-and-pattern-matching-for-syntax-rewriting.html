@@ -3,15 +3,15 @@
   <head>
 
     <meta charset="utf-8">
-    <title>About page</title>
-    <meta name="description" content="About page: Your about page, here....">
+    <title>Using Quasiquotation and Pattern Matching for Syntax Rewriting</title>
+    <meta name="description" content="This is a mini-series of six entries which together introduce using quotation and pattern matching to represent and transform syntax in Racket. The focus is on quasiquotation; part 6 will assume you have a vague grasp of what pattern matching is, although...">
     <meta name="author"      content="The Unknown Author">
-    <meta name="keywords"    content="">
+    <meta name="keywords"    content="racket, Author: disconcision">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
     <link rel="icon"      href="/favicon.ico">
-    <link rel="canonical" href="http://www.example.com/About.html">
+    <link rel="canonical" href="http://www.example.com/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html">
 
-
+    <link rel="prev" href="/2017/10/quasiquotation-part-1-quote.html">
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/pygments.css">
@@ -64,7 +64,7 @@
 <li><a href="/tags/racket.html">racket</a></li>
               </ul>
             </li>
-            <li class="active">
+            <li>
               <a href="/About.html">About</a>
             </li> 
             <li><a href="/feeds/all.atom.xml">Atom</a></li>
@@ -83,10 +83,63 @@
 
 
 
+          <article>
+  <header>
+    <h1>Using Quasiquotation and Pattern Matching for Syntax Rewriting</h1>
+    <p class='date-and-tags'>
+<time datetime="2017-10-25" pubdate="true">2017-10-25</time> :: <span class="tags"><a href="/tags/racket.html">racket</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-disconcision.html">disconcision</a></span></p>
+  </header>
 
-<h1 id="about-page">About page</h1>
+<p>This is a mini-series of six entries which together introduce using quotation and pattern matching to represent and transform syntax in Racket. The focus is on quasiquotation; part 6 will assume you have a vague grasp of what pattern matching is, although I might fill in this gap latter through a tutorial on implementing pattern matching.</p>
 
-<p>Your about page, here.</p>
+<ol>
+ <li><a href="quasiquotation-part-1-quote.html">Quasiquotation Part 1: Quote</a></li>
+ <li><a href="quasiquotation-part-2-an-interlude-on-implicit-operations.html">Quasiquotation Part 2: An interlude on implicit operations</a></li>
+ <li><a href="quasiquotation-part-3-implicit-operations-in-a-lispy-context.html">Quasiquotation Part 3: Implicit Operations in a Lispy Context</a></li>
+ <li><a href="quasiquotation-part-4-unquote.html">Quasiquotation Part 4: Unquote?</a></li>
+ <li><a href="quasiquotation-part-5-quasiquote.html">Quasiquotation Part 5: Quasiquote!</a></li>
+ <li><a href="quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html">Quasiquotation Part 6: Quasiquotation in the context of Racket/Match</a></li></ol>
+  <footer>
+    <!--
+    <script type="text/javascript">
+      !function(d,s,id){
+          var js,fjs=d.getElementsByTagName(s)[0];
+          if(!d.getElementById(id)){
+              js=d.createElement(s);
+              js.id=id;
+              js.src="//platform.twitter.com/widgets.js";
+              fjs.parentNode.insertBefore(js,fjs);
+          }
+      }(document,"script","twitter-wjs");
+    </script>
+    <a href="https://twitter.com/share"
+       class="twitter-share-button"
+       data-url="http://www.example.com/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html"
+       data-dnt="true">
+      "Tweet"</a>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <g:plusone size="medium" href="http://www.example.com/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html"></g:plusone>
+    <script type="text/javascript">
+      var disqus_shortname = 'shortname';
+      (function() {
+          var dsq = document.createElement('script');
+          dsq.type = 'text/javascript';
+          dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <div id="disqus_thread"></div>
+    -->
+    <ul class="pager">
+    <li class="previous">
+      <a href="/2017/10/quasiquotation-part-1-quote.html">&larr; <em>Quasiquotation Part 1: Quote</em></a>
+    </li>
+
+    </ul>
+  </footer>
+</article>
         </div>
       </div>
       <footer>
