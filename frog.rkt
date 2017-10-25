@@ -4,9 +4,9 @@
 ;; in frog/params.
 (define/contract (init)
   (-> any)
-  (current-scheme/host "http://disconcision.github.io/fructlog")
+  (current-scheme/host "http://disconcision.github.io")
   (current-title "fructlog")
-  #;(current-uri-prefix "fructlog/")
+  (current-uri-prefix "/fructlog")
   (current-author "disconcision"))
 
 ;; Called once per post and non-post page, on the contents.
