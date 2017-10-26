@@ -1,8 +1,8 @@
-http://disconcision.github.io/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html
-http://disconcision.github.io/2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html
-http://disconcision.github.io/2017/10/quasiquotation-part-4-unquote.html
-http://disconcision.github.io/2017/10/quasiquotation-part-5-quasiquote.html
-http://disconcision.github.io/2017/10/quasiquotation-part-1-quote.html
-http://disconcision.github.io/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html
-http://disconcision.github.io/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html
-http://disconcision.github.io/fructlog/About.html
+http://www.example.com/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html
+http://www.example.com/2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html
+http://www.example.com/2017/10/quasiquotation-part-4-unquote.html
+http://www.example.com/2017/10/quasiquotation-part-5-quasiquote.html
+http://www.example.com/2017/10/quasiquotation-part-1-quote.html
+http://www.example.com/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html
+http://www.example.com/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html
+http://www.example.com/fructlog/About.html
