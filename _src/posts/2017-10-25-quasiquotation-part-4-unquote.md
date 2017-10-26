@@ -57,4 +57,4 @@ or more tersely:
 
 The unquoted segments would be evaluated normally, producing either a value or an error. So we'll have to something *just slightly* more complicated...
 
-Next up: [Quasiquotation Part 5: Quasiquote!](quasiquotation-part-5-quasiquote.html)
+Next up: [Quasiquotation Part 5: Quasiquote!](2017/10/quasiquotation-part-5-quasiquote.html)

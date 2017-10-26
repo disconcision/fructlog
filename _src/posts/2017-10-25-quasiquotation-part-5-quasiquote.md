@@ -75,4 +75,4 @@ If we're reading code from the outside-in, every time we encounter a quasiquote,
 
 That's basically the full picture of how Racket treats quasiquotation! But like I said, for use at a single level of 'meta' you only need to worry about quasiquote levels 0 (business as usual) and 1 (literalize until unquoted).
 
-Next up: The stunning conclusion: [Quasiquotation Part 6: Quasiquotation in the context of Racket/Match](quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html)
+Next up: The stunning conclusion: [Quasiquotation Part 6: Quasiquotation in the context of Racket/Match](2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html)

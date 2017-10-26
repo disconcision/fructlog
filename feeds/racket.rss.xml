@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <rss version="2.0">
  <channel>
-  <title>My Blog: Posts tagged 'racket'</title>
-  <description>My Blog: Posts tagged 'racket'</description>
-  <link>http://www.example.com/tags/racket.html</link>
+  <title>fructlog: Posts tagged 'racket'</title>
+  <description>fructlog: Posts tagged 'racket'</description>
+  <link>http://disconcision.github.io/fructlog/fructlog/tags/racket.html</link>
   <lastBuildDate>Wed, 25 Oct 2017 22:09:23 UT</lastBuildDate>
   <pubDate>Wed, 25 Oct 2017 22:09:23 UT</pubDate>
   <ttl>1800</ttl>
   <item>
    <title>Quasiquotation Part 6: Quasiquotation in the context of Racket/Match</title>
-   <link>http://www.example.com/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html?utm_source=racket&amp;utm_medium=RSS</link>
-   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match-html</guid>
+   <link>http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-disconcision-github-io-fructlog:-2017-10-quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match-html</guid>
    <pubDate>Wed, 25 Oct 2017 22:09:23 UT</pubDate>
    <author>disconcision</author>
    <description>
@@ -191,8 +191,8 @@
 &lt;p&gt;And with that, we&amp;rsquo;re done! If you&amp;rsquo;ve made it this far, you now know just about everything you need to implement quasiquotation yourself. All that stands in your way is the &lt;a href="http://www.greghendershott.com/fear-of-macros/all.html"&gt;Fear of Macros&lt;/a&gt;.&lt;/p&gt;</description></item>
   <item>
    <title>Quasiquotation Part 5: Quasiquote!</title>
-   <link>http://www.example.com/2017/10/quasiquotation-part-5-quasiquote.html?utm_source=racket&amp;utm_medium=RSS</link>
-   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-5-quasiquote-html</guid>
+   <link>http://disconcision.github.io/fructlog/fructlog/2017/10/quasiquotation-part-5-quasiquote.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-disconcision-github-io-fructlog:-fructlog-2017-10-quasiquotation-part-5-quasiquote-html</guid>
    <pubDate>Wed, 25 Oct 2017 21:50:15 UT</pubDate>
    <author>disconcision</author>
    <description>
@@ -372,11 +372,11 @@
 
 &lt;p&gt;That&amp;rsquo;s basically the full picture of how Racket treats quasiquotation! But like I said, for use at a single level of &amp;lsquo;meta&amp;rsquo; you only need to worry about quasiquote levels 0 (business as usual) and 1 (literalize until unquoted).&lt;/p&gt;
 
-&lt;p&gt;Next up: The stunning conclusion: &lt;a href="quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html"&gt;Quasiquotation Part 6: Quasiquotation in the context of Racket/Match&lt;/a&gt;&lt;/p&gt;</description></item>
+&lt;p&gt;Next up: The stunning conclusion: &lt;a href="2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html"&gt;Quasiquotation Part 6: Quasiquotation in the context of Racket/Match&lt;/a&gt;&lt;/p&gt;</description></item>
   <item>
    <title>Quasiquotation Part 4: Unquote?</title>
-   <link>http://www.example.com/2017/10/quasiquotation-part-4-unquote.html?utm_source=racket&amp;utm_medium=RSS</link>
-   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-4-unquote-html</guid>
+   <link>http://disconcision.github.io/fructlog/fructlog/2017/10/quasiquotation-part-4-unquote.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-disconcision-github-io-fructlog:-fructlog-2017-10-quasiquotation-part-4-unquote-html</guid>
    <pubDate>Wed, 25 Oct 2017 21:41:22 UT</pubDate>
    <author>disconcision</author>
    <description>
@@ -490,11 +490,11 @@
 
 &lt;p&gt;The unquoted segments would be evaluated normally, producing either a value or an error. So we&amp;rsquo;ll have to something &lt;em&gt;just slightly&lt;/em&gt; more complicated&amp;hellip;&lt;/p&gt;
 
-&lt;p&gt;Next up: &lt;a href="quasiquotation-part-5-quasiquote.html"&gt;Quasiquotation Part 5: Quasiquote!&lt;/a&gt;&lt;/p&gt;</description></item>
+&lt;p&gt;Next up: &lt;a href="2017/10/quasiquotation-part-5-quasiquote.html"&gt;Quasiquotation Part 5: Quasiquote!&lt;/a&gt;&lt;/p&gt;</description></item>
   <item>
    <title>Quasiquotation Part 3: Implicit Operations in a Lispy Context</title>
-   <link>http://www.example.com/2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html?utm_source=racket&amp;utm_medium=RSS</link>
-   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-3-implicit-operations-in-a-lispy-context-html</guid>
+   <link>http://disconcision.github.io/fructlog/fructlog/2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-disconcision-github-io-fructlog:-fructlog-2017-10-quasiquotation-part-3-implicit-operations-in-a-lispy-context-html</guid>
    <pubDate>Wed, 25 Oct 2017 21:29:04 UT</pubDate>
    <author>disconcision</author>
    <description>
@@ -734,11 +734,11 @@
 
 &lt;p&gt;Next time we&amp;rsquo;ll look at expanding quote to describe related pieces of source code in terms of templates.&lt;/p&gt;
 
-&lt;p&gt;Next up: &lt;a href="quasiquotation-part-4-unquote.html"&gt;Quasiquotation Part 4: Unquote?&lt;/a&gt;&lt;/p&gt;</description></item>
+&lt;p&gt;Next up: &lt;a href="2017/10/quasiquotation-part-4-unquote.html"&gt;Quasiquotation Part 4: Unquote?&lt;/a&gt;&lt;/p&gt;</description></item>
   <item>
    <title>Quasiquotation Part 2: An interlude on implicit operations</title>
-   <link>http://www.example.com/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html?utm_source=racket&amp;utm_medium=RSS</link>
-   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-2-an-interlude-on-implicit-operations-html</guid>
+   <link>http://disconcision.github.io/fructlog/fructlog/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-disconcision-github-io-fructlog:-fructlog-2017-10-quasiquotation-part-2-an-interlude-on-implicit-operations-html</guid>
    <pubDate>Wed, 25 Oct 2017 21:18:41 UT</pubDate>
    <author>disconcision</author>
    <description>
@@ -776,11 +776,11 @@
 
 &lt;p&gt;Ugly and inconvenient, but at least it&amp;rsquo;s clear exactly what we mean.&lt;/p&gt;
 
-&lt;p&gt;Next up: &lt;a href="quasiquotation-part-3-implicit-operations-in-a-lispy-context.html"&gt;Quasiquotation Part 3: Implicit Operations in a Lispy Context&lt;/a&gt;&lt;/p&gt;</description></item>
+&lt;p&gt;Next up: &lt;a href="2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html"&gt;Quasiquotation Part 3: Implicit Operations in a Lispy Context&lt;/a&gt;&lt;/p&gt;</description></item>
   <item>
    <title>Quasiquotation Part 1: Quote</title>
-   <link>http://www.example.com/2017/10/quasiquotation-part-1-quote.html?utm_source=racket&amp;utm_medium=RSS</link>
-   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-quasiquotation-part-1-quote-html</guid>
+   <link>http://disconcision.github.io/fructlog/fructlog/2017/10/quasiquotation-part-1-quote.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-disconcision-github-io-fructlog:-fructlog-2017-10-quasiquotation-part-1-quote-html</guid>
    <pubDate>Wed, 25 Oct 2017 19:39:05 UT</pubDate>
    <author>disconcision</author>
    <description>
@@ -932,11 +932,11 @@
 
 &lt;p&gt;And that&amp;rsquo;s really all there is to quote. Now it likely seems like we&amp;rsquo;ve gone a long way to get almost nothing at all. We can summarize what&amp;rsquo;s gone before as &amp;ldquo;if you want to refer to the code itself instead of its result under evaluation, stick a &amp;rsquo; in front of it&amp;rdquo;. This is mostly a fair assessment, but let&amp;rsquo;s more carefully examine what we&amp;rsquo;ve gained.&lt;/p&gt;
 
-&lt;p&gt;Next up: &lt;a href="quasiquotation-part-2-an-interlude-on-implicit-operations.html"&gt;Quasiquotation Part 2: An interlude on implicit operations&lt;/a&gt;&lt;/p&gt;</description></item>
+&lt;p&gt;Next up: &lt;a href="2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html"&gt;Quasiquotation Part 2: An interlude on implicit operations&lt;/a&gt;&lt;/p&gt;</description></item>
   <item>
    <title>Using Quasiquotation and Pattern Matching for Syntax Rewriting</title>
-   <link>http://www.example.com/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html?utm_source=racket&amp;utm_medium=RSS</link>
-   <guid isPermaLink="false">urn:http-www-example-com:-2017-10-using-quasiquotation-and-pattern-matching-for-syntax-rewriting-html</guid>
+   <link>http://disconcision.github.io/fructlog/fructlog/2017/10/using-quasiquotation-and-pattern-matching-for-syntax-rewriting.html?utm_source=racket&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-disconcision-github-io-fructlog:-fructlog-2017-10-using-quasiquotation-and-pattern-matching-for-syntax-rewriting-html</guid>
    <pubDate>Wed, 25 Oct 2017 17:56:12 UT</pubDate>
    <author>disconcision</author>
    <description>
