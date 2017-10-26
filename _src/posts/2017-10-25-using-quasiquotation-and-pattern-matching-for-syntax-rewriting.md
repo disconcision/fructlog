@@ -3,7 +3,7 @@
     Tags: racket
     Authors: disconcision
 
-This is a mini-series of six entries which together introduce using quotation and pattern matching to represent and transform syntax in Racket. The focus is on quasiquotation; part 6 will assume you have a vague grasp of what pattern matching is, although I might fill in this gap later through a tutorial on implementing pattern matching.
+This is a miniseries of six entries introducing quotation and pattern matching as mechanisms to represent and transform syntax. Some elementary Racket/Scheme experience is assumed. The focus is on quasiquotation; part 6 will assume you have a vague grasp of what pattern matching is, although I might fill in this gap later through a tutorial on implementing pattern matching.
 
 1. [Quasiquotation Part 1: Quote](http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-1-quote.html)
 2. [Quasiquotation Part 2: An interlude on implicit operations](http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html)

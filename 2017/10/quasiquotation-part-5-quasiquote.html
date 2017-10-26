@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
     <title>Quasiquotation Part 5: Quasiquote!</title>
-    <meta name="description" content="We introduce a new form, quasiquote, sugared as &quot;`&quot;. The first and most important thing to note about quasiquote is that, if a quasiquote form doesn't contain any unquotes, it behaves exactly like quote:                     1 2              (quasiquote (i...">
+    <meta name="description" content="A Review: Parsing Quote:  First, let's review how to (mentally) parse code when there are (simple) quote forms in the wild.  When encountering a symbol: Let's say you see the symbol &quot;a&quot;. Are you inside a quote form? Then you're looking at (quote a), a sym...">
     <meta name="author"      content="disconcision">
     <meta name="keywords"    content="racket, Author: disconcision">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -91,7 +91,17 @@
     <p class='authors'>By: <span class="authors"><a href="/fructlog/tags/Author-disconcision.html">disconcision</a></span></p>
   </header>
 
-<p>We introduce a new form, quasiquote, sugared as "`". The first and most important thing to note about quasiquote is that, if a quasiquote form doesn&rsquo;t contain any unquotes, it behaves exactly like quote:</p>
+<h3 id="a-review-parsing-quote">A Review: Parsing Quote</h3>
+
+<p>First, let&rsquo;s review how to (mentally) parse code when there are (simple) quote forms in the wild.</p>
+
+<p>When encountering a symbol: Let&rsquo;s say you see the symbol &ldquo;a&rdquo;. Are you inside a quote form? Then you&rsquo;re looking at (quote a), a symbol literal. Otherwise, are you in a binding form like <em>define</em>? If so, you&rsquo;re at a binding site for the identifier a. Otherwise, you&rsquo;re looking at a(n implicit) variable reference form, <strong>(var-ref a)</strong>.</p>
+
+<p>For lists: Let&rsquo;s say you see the list "(a b c)". Are you inside a quote form? If so, you&rsquo;re looking at (list &rsquo;a &rsquo;b &rsquo;c), a list literal. Otherwise, does the expression denote a special syntactic form (like <em>if</em>)? If not, then you&rsquo;re looking at a function application.</p>
+
+<h3 id="introducing-quasiquote">Introducing Quasiquote</h3>
+
+<p>Now, we introduce a new form, quasiquote, sugared as "`". The first and most important thing to note about quasiquote is that, if a quasiquote form doesn&rsquo;t contain any unquotes, it behaves exactly like quote:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -125,7 +135,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>If we use an unquote within quasiquote, the effect is precisely what we tried to achieve above: unquoted portions within a quasiquotation are evaluated normally. BUT within a /quoted form/, both unquote AND quasiquote are just treated as symbol literals, and have no effect. Note that this is not a special case for quote; quasiquote and unquote are just treated like everything else!</p>
+<p>If we use an unquote within quasiquote, the effect is precisely what we tried to achieve before: unquoted portions within a quasiquotation are evaluated normally. BUT within a quote form, both unquote AND quasiquote are just treated as symbol literals, and have no effect. Note that this is <strong>not</strong> a special case for quote; quasiquote and unquote are just treated like everything else!</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -177,7 +187,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>There is one additional complexity with quasiquote, which you probably don&rsquo;t have to worry about here, but is worth thinking about for the sake of completeness: What happens if we use a quasiquote within quasiquote?</p>
+<p>There is one additional complexity with quasiquote, which you probably don&rsquo;t have to worry for a while, but is worth thinking about for the sake of completeness: What happens if we use a quasiquote inside a quasiquote?</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -217,9 +227,9 @@
 </td></tr></tbody></table>
 </div>
 
-<p>After all, why would we want to deal with nested levels of quasiquotation? What would it actually even mean? However, this is NOT the implementation used in scheme/racket. The reason is that we want to use quasiquotation for macros, for rewriting code, and what&rsquo;s even better than rewriting code? Rewriting code that rewrites code! That is, we want the ability to use quasiquoted templates which, when evaluated, themselves return quasiquoted templates.</p>
+<p>After all, why would we want to deal with nested levels of quasiquotation? What would it actually even mean? However, this is NOT the implementation used in scheme/racket. The reason (I think??) is that we want to be able use quasiquotation for macros - for rewriting code - and what&rsquo;s even better than rewriting code? Rewriting code that rewrites code! That is, we want the ability to use quasiquoted templates which, when evaluated, themselves return quasiquoted templates.</p>
 
-<p>Thus, we have the notion of &lsquo;levels&rsquo; of quasiquotation. In the example above, the unquote containing &ldquo;a&rdquo; is under two levels of quasiquotation. Therefore it is not evaluated:</p>
+<p>Thus, we have the notion of <em>levels of quasiquotation</em>; a parameter we must keep track of when parsing, expressed as a non-negative integer. In the example above, the unquote containing &ldquo;a&rdquo; is under two levels of quasiquotation. Therefore it is not evaluated:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -261,11 +271,13 @@
 
 <p>Note that we&rsquo;ve preserved both the nested quasiquote AND one level of unquote around &ldquo;b&rdquo;. So what we&rsquo;re left with could itself be used as a template for further processing.</p>
 
-<p>When you&rsquo;re parsing code in your head, think about it like this: Regular code (not inside a quote or quasiquote form) is at &lsquo;quasiquote level 0&rsquo;. This means it is evaluated like&hellip;. wait for it&hellip; regular code.</p>
+<p>When you&rsquo;re parsing code in your head, think about it like this: Regular code (not inside a quote or quasiquote form) is at <em>quasiquote level 0</em>. This means it is evaluated like&hellip;. wait for it&hellip; regular code.</p>
 
-<p>If we&rsquo;re reading code from the outside-in, every time we encounter a quasiquote, we increment the quasiquote level by 1, and every time we encounter and unquote, we decrement by one. If the quasiquote level is greater than 0, we interpret what we see (including symbols, lists, quotes, and quasiquotes) as literals. If it reaches 0, we evaluate normally. If it goes under 0, like if we found an unquote without any surrounding quasiquote, that generates an error.</p>
+<p>If we&rsquo;re reading code from the outside-in, every time we encounter a quasiquote, we increment the quasiquote level by 1, and every time we encounter an unquote, we decrement by one. If the quasiquote level is greater than 0, we interpret what we see (including symbols, lists, quotes, and quasiquotes) as literals. If the level reaches 0, we evaluate normally. If it goes under 0, like if we found an unquote without any surrounding quasiquote, we get an error.</p>
 
-<p>That&rsquo;s basically the full picture of how Racket treats quasiquotation! But like I said, for use at a single level of &lsquo;meta&rsquo; you only need to worry about quasiquote levels 0 (business as usual) and 1 (literalize until unquoted).</p>
+<p>That&rsquo;s basically the full picture of how Racket treats quasiquotation! But like I said, for use at a single level of &rsquo;meta&rsquo; you only need to worry about quasiquote levels 0 (business as usual) and 1 (literalize until unquoted).</p>
+
+<p>(Side note: There is an additional form of unquote called <strong>unquote-splicing</strong> (sugared as <strong>,@</strong>), which is used to &rsquo;splice&rsquo; a variable representing a list into a parent list. <a href="https://docs.racket-lang.org/reference/quasiquote.html">You can read more about it here</a>.)</p>
 
 <p>Next up: The stunning conclusion: <a href="http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html">Quasiquotation Part 6: Quasiquotation in the context of Racket/Match</a></p>
   <footer>

@@ -32,13 +32,13 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;An individual match clause consists of a pattern and a template. The pattern is &amp;lsquo;matched&amp;rsquo; against the template, either comparing sub-constituents literal-to-literal, or binding literals to &amp;lsquo;wildcard&amp;rsquo; variables. The template is just regular racket code. If we use quasiquote/unquote in our template, it&amp;rsquo;s going to work exactly as I&amp;rsquo;ve described in the previous part. One common use for pattern matching in Racket is term rewriting and reduction; that is, parsing and evaluating code in languages which we ourselves define. This very often involves &amp;lsquo;recognizing&amp;rsquo; some pattern of code, and transforming it according to a template.&lt;/p&gt;
+&lt;p&gt;An individual match clause consists of a pattern and a template. The pattern is &amp;lsquo;matched&amp;rsquo; against the template, either comparing pattern sub-constituents literal-to-literal, or binding literals to &amp;lsquo;wildcard&amp;rsquo; variables. The template is just regular racket code. If we use quasiquote/unquote in our template, it&amp;rsquo;s going to work exactly as I&amp;rsquo;ve described in the previous part. One common use for pattern matching in Racket is term rewriting and reduction; that is, parsing and evaluating code in domain-specific languages which we ourselves create. This very often involves &amp;lsquo;recognizing&amp;rsquo; some pattern of code, and transforming it into another according to a template.&lt;/p&gt;
 
 &lt;p&gt;For code rewriting, we want to do two things: &lt;em&gt;destructure&lt;/em&gt; nested lists representing our code according to patterns we specify, and then &lt;em&gt;restructure&lt;/em&gt; those pieces according to templates we specify. Quasiquotation as described above provides a rich way to restructure; wouldn&amp;rsquo;t it be nice if we could destucture our code in a way that is syntactically symmetric? That is, instead of &lt;em&gt;imperatively&lt;/em&gt; specifying how to take apart and put together expressions using list operations, we &lt;em&gt;descriptively&lt;/em&gt; illustrate the transformations themselves.&lt;/p&gt;
 
 &lt;h4 id="using-quasiquotation-to-destructure"&gt;Using Quasiquotation to Destructure:&lt;/h4&gt;
 
-&lt;p&gt;Say we wanted to rewrite an &amp;lsquo;if&amp;rsquo; statement to swap the consequence and alternative. If we already captured the three components of our original &amp;ldquo;if&amp;rdquo; as variables a, b, and c, we&amp;rsquo;d use quasiquotation to restructure our new &amp;ldquo;if&amp;rdquo; using `(if ,a ,c ,b).&lt;/p&gt;
+&lt;p&gt;Say we wanted to rewrite an &lt;em&gt;if&lt;/em&gt; form into an equivalent &lt;em&gt;cond&lt;/em&gt;. If we already captured the three components of our original &lt;em&gt;if&lt;/em&gt; as variables a, b, and c, we could use quasiquotation to restructure our new &lt;em&gt;cond&lt;/em&gt; using `(cond [,a ,c] [else ,b]).&lt;/p&gt;
 
 &lt;p&gt;So what we&amp;rsquo;d like to write is something like this:&lt;/p&gt;
 
@@ -53,14 +53,14 @@
     &lt;td class="code"&gt;
      &lt;div class="source"&gt;
       &lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;&lt;a href="http://docs.racket-lang.org/reference/match.html#(form._((lib._racket/match..rkt)._match))" style="color: inherit"&gt;match&lt;/a&gt;&lt;/span&gt; &lt;span class="o"&gt;'&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;&lt;a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit"&gt;if&lt;/a&gt;&lt;/span&gt; &lt;span class="no"&gt;#t&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;'&lt;/span&gt;
-&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;&lt;a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit"&gt;if&lt;/a&gt;&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;a&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;b&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;&lt;a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit"&gt;if&lt;/a&gt;&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;a&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;c&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)])&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;&lt;a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit"&gt;if&lt;/a&gt;&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;a&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;b&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;&lt;a href="http://docs.racket-lang.org/reference/if.html#(form._((lib._racket/private/letstx-scheme..rkt)._cond))" style="color: inherit"&gt;cond&lt;/a&gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;a&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;c&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;&lt;a href="http://docs.racket-lang.org/reference/if.html#(form._((lib._racket/private/letstx-scheme..rkt)._else))" style="color: inherit"&gt;else&lt;/a&gt;&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;b&lt;/span&gt;&lt;span class="p"&gt;])])&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
 &lt;p&gt;While it&amp;rsquo;s not hard to intuit what&amp;rsquo;s going on in the left-hand side, let&amp;rsquo;s be totally explicit about what&amp;rsquo;s going on. Remember, &amp;lsquo;destructuring&amp;rsquo; is something new here; just because we want to do it using the same syntax as regular quasiquotation doesn&amp;rsquo;t mean the semantics is going to be the same, although as we&amp;rsquo;ll see it&amp;rsquo;s very close.&lt;/p&gt;
 
-&lt;p&gt;First, we should be explicit about the way the match form treats regular, non-quoted data. Remember that in regular racket code, a symbol (say, a) appearing outside a quote-type form and outside a binding form is treated as a(n implicit) variable reference form &lt;strong&gt;(var-ref a)&lt;/strong&gt;. In the left-hand side of a match template, on the other hand, a &amp;lsquo;bare symbol&amp;rsquo; is treated as an in-line &lt;em&gt;variable binding form&lt;/em&gt;, &lt;strong&gt;(var-bind a)&lt;/strong&gt;. Remember that var-ref and var-bind are my shorthands here; they won&amp;rsquo;t work within Racket. However, if you want to be explicit about binding forms in your patterns, you can use the var form. That is, both these matches are precisely equivalent:&lt;/p&gt;
+&lt;p&gt;First, we should be explicit about the way the match form treats regular, non-quoted data. Remember that in regular racket code, a symbol (say, &lt;strong&gt;a&lt;/strong&gt;) appearing outside a quote-type form and outside a binding form is treated as a(n implicit) variable reference form &lt;strong&gt;(var-ref a)&lt;/strong&gt;. In the left-hand side of a match template, on the other hand, a &amp;lsquo;bare symbol&amp;rsquo; is treated as an &lt;em&gt;in-line variable binding form&lt;/em&gt;, &lt;strong&gt;(var-bind a)&lt;/strong&gt;. Remember that var-ref and var-bind are my shorthands here; they won&amp;rsquo;t work within Racket. However, if you want to be explicit about in-line binding forms in your patterns, you can use the var form. That is, both these matches are equivalent:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -100,13 +100,13 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;In the first case, the first a is at quasiquote level 1, so it is interpreted as the symbol-literal &amp;rsquo;a. This is not the same as the literal 3, so the match fails. The second a, contained in the unquote, is at quasiquote level, so it would be interpreted as a binding form, if it hadn&amp;rsquo;t been so rudely interrupted by the previous mismatch. The second example finally gives it it&amp;rsquo;s chance to shine. On the template side, the first a is at quasiquote level 1, and so is treated as a literal; the second is at level 0 and so is treated as variable reference form.&lt;/p&gt;
+&lt;p&gt;In the first case, the first &lt;strong&gt;a&lt;/strong&gt; is at quasiquote level 1, so it is interpreted as the symbol-literal &lt;strong&gt;&amp;rsquo;a&lt;/strong&gt;. This is not the same as the literal &lt;strong&gt;3&lt;/strong&gt;, so the match fails. The second &lt;strong&gt;a&lt;/strong&gt;, contained in the unquote, is at quasiquote level 0, so it would be interpreted as a binding form, if it hadn&amp;rsquo;t been so rudely interrupted by the previous mismatch. The second example finally gives it its chance to shine. On the template side, the first &lt;strong&gt;a&lt;/strong&gt; is at quasiquote level 1, and so is treated as a literal; the second is at level 0 and so is treated as variable reference form.&lt;/p&gt;
 
-&lt;p&gt;This example is nearly fully illustrative; aside from the fact that the pattern matches and binds (destructures) and the template constructs and references (restructures), the semantics of quasiquote are almost fully symmetric, in a similar sense of symmetry as between var-bind and var-ref.&lt;/p&gt;
+&lt;p&gt;This example is nearly fully illustrative; aside from the fact that the pattern matches and binds (destructures) and the template constructs and references (restructures), the semantics of quasiquote are almost fully symmetric, in a similar sense as the symmetry as between var-bind and var-ref.&lt;/p&gt;
 
 &lt;h4 id="levels-of-quasiquotation-within-match"&gt;Levels of quasiquotation within match&lt;/h4&gt;
 
-&lt;p&gt;The only real difference is that pattern-side quasiquotation doesn&amp;rsquo;t care about higher levels of quasiquote. That is, we don&amp;rsquo;t need to (and in fact, can&amp;rsquo;t) use multiple unquotes to &amp;rsquo;escape from&amp;rsquo; multiple quasiquotations. An unquote always resets the quasiquotation level to 0.&lt;/p&gt;
+&lt;p&gt;The only real difference is that pattern-side quasiquotation doesn&amp;rsquo;t care about higher levels of quasiquote. That is, we don&amp;rsquo;t need to (and in fact, can&amp;rsquo;t) use multiple unquotes to &amp;rsquo;escape from&amp;rsquo; multiple quasiquotations. An unquote always resets the quasiquotation level to 0:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -126,7 +126,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;I&amp;rsquo;m not sure exactly why this behavior was chosen, but it&amp;rsquo;s likely because there&amp;rsquo;s no obvious use case for multiple levels of nesting in a pattern, since the pattern itself is not returned; after matching succeeds or fails, all that matters is the bindings that were made. Here&amp;rsquo;s my (failed) attempt to find a use for multi-level quasiquotation in patterns:&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m not completely cetain why this behavior was chosen, but it seems likely because there&amp;rsquo;s no obvious use case for multiple levels of nesting in a pattern. Since the pattern itself is not returned, after matching succeeds or fails, all that matters is the bindings that were made. Here&amp;rsquo;s my (failed) attempt to find a use for multi-level quasiquotation in patterns:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -146,7 +146,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;What if we wanted to rewrite the above to extract just the &lt;em&gt;2&lt;/em&gt;, without the leading &lt;em&gt;unquote&lt;/em&gt;? Why can&amp;rsquo;t we just:&lt;/p&gt;
+&lt;p&gt;What if we wanted to rewrite the above to extract just the &lt;strong&gt;2&lt;/strong&gt;, without the leading &lt;strong&gt;unquote&lt;/strong&gt;? Why can&amp;rsquo;t we just:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -198,7 +198,17 @@
   <author>
    <name>disconcision</name></author>
   <content type="html">
-&lt;p&gt;We introduce a new form, quasiquote, sugared as "`". The first and most important thing to note about quasiquote is that, if a quasiquote form doesn&amp;rsquo;t contain any unquotes, it behaves exactly like quote:&lt;/p&gt;
+&lt;h3 id="a-review-parsing-quote"&gt;A Review: Parsing Quote&lt;/h3&gt;
+
+&lt;p&gt;First, let&amp;rsquo;s review how to (mentally) parse code when there are (simple) quote forms in the wild.&lt;/p&gt;
+
+&lt;p&gt;When encountering a symbol: Let&amp;rsquo;s say you see the symbol &amp;ldquo;a&amp;rdquo;. Are you inside a quote form? Then you&amp;rsquo;re looking at (quote a), a symbol literal. Otherwise, are you in a binding form like &lt;em&gt;define&lt;/em&gt;? If so, you&amp;rsquo;re at a binding site for the identifier a. Otherwise, you&amp;rsquo;re looking at a(n implicit) variable reference form, &lt;strong&gt;(var-ref a)&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;For lists: Let&amp;rsquo;s say you see the list "(a b c)". Are you inside a quote form? If so, you&amp;rsquo;re looking at (list &amp;rsquo;a &amp;rsquo;b &amp;rsquo;c), a list literal. Otherwise, does the expression denote a special syntactic form (like &lt;em&gt;if&lt;/em&gt;)? If not, then you&amp;rsquo;re looking at a function application.&lt;/p&gt;
+
+&lt;h3 id="introducing-quasiquote"&gt;Introducing Quasiquote&lt;/h3&gt;
+
+&lt;p&gt;Now, we introduce a new form, quasiquote, sugared as "`". The first and most important thing to note about quasiquote is that, if a quasiquote form doesn&amp;rsquo;t contain any unquotes, it behaves exactly like quote:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -232,7 +242,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;If we use an unquote within quasiquote, the effect is precisely what we tried to achieve above: unquoted portions within a quasiquotation are evaluated normally. BUT within a /quoted form/, both unquote AND quasiquote are just treated as symbol literals, and have no effect. Note that this is not a special case for quote; quasiquote and unquote are just treated like everything else!&lt;/p&gt;
+&lt;p&gt;If we use an unquote within quasiquote, the effect is precisely what we tried to achieve before: unquoted portions within a quasiquotation are evaluated normally. BUT within a quote form, both unquote AND quasiquote are just treated as symbol literals, and have no effect. Note that this is &lt;strong&gt;not&lt;/strong&gt; a special case for quote; quasiquote and unquote are just treated like everything else!&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -284,7 +294,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;There is one additional complexity with quasiquote, which you probably don&amp;rsquo;t have to worry about here, but is worth thinking about for the sake of completeness: What happens if we use a quasiquote within quasiquote?&lt;/p&gt;
+&lt;p&gt;There is one additional complexity with quasiquote, which you probably don&amp;rsquo;t have to worry for a while, but is worth thinking about for the sake of completeness: What happens if we use a quasiquote inside a quasiquote?&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -324,9 +334,9 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;After all, why would we want to deal with nested levels of quasiquotation? What would it actually even mean? However, this is NOT the implementation used in scheme/racket. The reason is that we want to use quasiquotation for macros, for rewriting code, and what&amp;rsquo;s even better than rewriting code? Rewriting code that rewrites code! That is, we want the ability to use quasiquoted templates which, when evaluated, themselves return quasiquoted templates.&lt;/p&gt;
+&lt;p&gt;After all, why would we want to deal with nested levels of quasiquotation? What would it actually even mean? However, this is NOT the implementation used in scheme/racket. The reason (I think??) is that we want to be able use quasiquotation for macros - for rewriting code - and what&amp;rsquo;s even better than rewriting code? Rewriting code that rewrites code! That is, we want the ability to use quasiquoted templates which, when evaluated, themselves return quasiquoted templates.&lt;/p&gt;
 
-&lt;p&gt;Thus, we have the notion of &amp;lsquo;levels&amp;rsquo; of quasiquotation. In the example above, the unquote containing &amp;ldquo;a&amp;rdquo; is under two levels of quasiquotation. Therefore it is not evaluated:&lt;/p&gt;
+&lt;p&gt;Thus, we have the notion of &lt;em&gt;levels of quasiquotation&lt;/em&gt;; a parameter we must keep track of when parsing, expressed as a non-negative integer. In the example above, the unquote containing &amp;ldquo;a&amp;rdquo; is under two levels of quasiquotation. Therefore it is not evaluated:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -368,11 +378,13 @@
 
 &lt;p&gt;Note that we&amp;rsquo;ve preserved both the nested quasiquote AND one level of unquote around &amp;ldquo;b&amp;rdquo;. So what we&amp;rsquo;re left with could itself be used as a template for further processing.&lt;/p&gt;
 
-&lt;p&gt;When you&amp;rsquo;re parsing code in your head, think about it like this: Regular code (not inside a quote or quasiquote form) is at &amp;lsquo;quasiquote level 0&amp;rsquo;. This means it is evaluated like&amp;hellip;. wait for it&amp;hellip; regular code.&lt;/p&gt;
+&lt;p&gt;When you&amp;rsquo;re parsing code in your head, think about it like this: Regular code (not inside a quote or quasiquote form) is at &lt;em&gt;quasiquote level 0&lt;/em&gt;. This means it is evaluated like&amp;hellip;. wait for it&amp;hellip; regular code.&lt;/p&gt;
 
-&lt;p&gt;If we&amp;rsquo;re reading code from the outside-in, every time we encounter a quasiquote, we increment the quasiquote level by 1, and every time we encounter and unquote, we decrement by one. If the quasiquote level is greater than 0, we interpret what we see (including symbols, lists, quotes, and quasiquotes) as literals. If it reaches 0, we evaluate normally. If it goes under 0, like if we found an unquote without any surrounding quasiquote, that generates an error.&lt;/p&gt;
+&lt;p&gt;If we&amp;rsquo;re reading code from the outside-in, every time we encounter a quasiquote, we increment the quasiquote level by 1, and every time we encounter an unquote, we decrement by one. If the quasiquote level is greater than 0, we interpret what we see (including symbols, lists, quotes, and quasiquotes) as literals. If the level reaches 0, we evaluate normally. If it goes under 0, like if we found an unquote without any surrounding quasiquote, we get an error.&lt;/p&gt;
 
-&lt;p&gt;That&amp;rsquo;s basically the full picture of how Racket treats quasiquotation! But like I said, for use at a single level of &amp;lsquo;meta&amp;rsquo; you only need to worry about quasiquote levels 0 (business as usual) and 1 (literalize until unquoted).&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s basically the full picture of how Racket treats quasiquotation! But like I said, for use at a single level of &amp;rsquo;meta&amp;rsquo; you only need to worry about quasiquote levels 0 (business as usual) and 1 (literalize until unquoted).&lt;/p&gt;
+
+&lt;p&gt;(Side note: There is an additional form of unquote called &lt;strong&gt;unquote-splicing&lt;/strong&gt; (sugared as &lt;strong&gt;,@&lt;/strong&gt;), which is used to &amp;rsquo;splice&amp;rsquo; a variable representing a list into a parent list. &lt;a href="https://docs.racket-lang.org/reference/quasiquote.html"&gt;You can read more about it here&lt;/a&gt;.)&lt;/p&gt;
 
 &lt;p&gt;Next up: The stunning conclusion: &lt;a href="http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-6-quasiquotation-in-the-context-of-racket-match.html"&gt;Quasiquotation Part 6: Quasiquotation in the context of Racket/Match&lt;/a&gt;&lt;/p&gt;</content></entry>
  <entry>
@@ -384,19 +396,11 @@
   <author>
    <name>disconcision</name></author>
   <content type="html">
-&lt;p&gt;First, let&amp;rsquo;s review how to (mentally) parse code when there are quote forms about.&lt;/p&gt;
+&lt;p&gt;The ability to represent code literally, as data, is all well-and-good, but what if we want to &lt;em&gt;actually do&lt;/em&gt; something with it? What if we want to build up code from smaller parts, or break it down into subcomponents?&lt;/p&gt;
 
-&lt;p&gt;When encountering (a wild) symbol: Let&amp;rsquo;s say you see the symbol &amp;ldquo;a&amp;rdquo;. Are you inside a quote form? Then you&amp;rsquo;re looking at (quote a), a symbol literal. Otherwise, are you in a binding form like define? If so, you&amp;rsquo;re at a binding site for the identifier a. Otherwise, you&amp;rsquo;re looking at a(n implicit) variable reference form, (var-ref a).&lt;/p&gt;
+&lt;p&gt;Technically, we already have everything we need in Racket&amp;rsquo;s basic list-handling functions. We can use list-reference functions like &lt;em&gt;first&lt;/em&gt; and &lt;em&gt;rest&lt;/em&gt; to extract components, and list-builder functions like &lt;em&gt;list&lt;/em&gt;, &lt;em&gt;list*&lt;/em&gt;, and &lt;em&gt;append&lt;/em&gt; to build up composites. For deeply nested lists though this can start to feel obscure and indirect.&lt;/p&gt;
 
-&lt;p&gt;For lists: Let&amp;rsquo;s say you see the list "(a b c)". Are you inside a quote form? If so, you&amp;rsquo;re looking at (list &amp;rsquo;a &amp;rsquo;b &amp;rsquo;c), a list literal. Otherwise, does &amp;ldquo;a&amp;rdquo; represent a special syntactic form (like &lt;em&gt;if&lt;/em&gt;)? If not, then you&amp;rsquo;re looking at a function application.&lt;/p&gt;
-
-&lt;p&gt;Simple, no? Now let&amp;rsquo;s get fancy.&lt;/p&gt;
-
-&lt;p&gt;The ability to represent code literally, as data, is all well-and-good, but what if we want to do something with it? What if we want to build up code from smaller parts, or break it down into subcomponents?&lt;/p&gt;
-
-&lt;p&gt;Technically, we already have everything we need in Racket&amp;rsquo;s basic list-handling functions. We can use list-reference functions like &lt;em&gt;first&lt;/em&gt; and &lt;em&gt;rest&lt;/em&gt; to extract components, and list-builder functions like &lt;em&gt;list&lt;/em&gt;, &lt;em&gt;list*&lt;/em&gt;, and &lt;em&gt;append&lt;/em&gt; to build up composites. For deeply nested lists though this can start to look obscure and indirect.&lt;/p&gt;
-
-&lt;p&gt;To be concrete, let&amp;rsquo;s consider the case of code templates. For example, the &lt;em&gt;if&lt;/em&gt; form is an expression which consists of three other expressions, denoted by lower-case letters:&lt;/p&gt;
+&lt;p&gt;To be concrete, let&amp;rsquo;s consider the case of code templates. For example, the &lt;em&gt;if&lt;/em&gt; form is an expression which contains three other expressions, denoted below by lower-case letters:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -412,7 +416,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Let&amp;rsquo;s say we had values for these three component expressions and wanted to use the &amp;rsquo;abstract&amp;rsquo; quoted form above as a template to build a &amp;rsquo;concrete&amp;rsquo; if statement:&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s say we had values for these three component expressions and wanted to use the abstract quoted form gven above as a template to build a concrete &lt;em&gt;if&lt;/em&gt; statement:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -430,9 +434,9 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Now, it wouldn&amp;rsquo;t be too hard to map or iterate through our template, replacing each instance of a particular symbol literal with the corresponding value given by the bindings. But notice that what we&amp;rsquo;re really doing is just manual variable substitution, something the compiler already knows how to do! So why don&amp;rsquo;t we try to make it do the work for us? What would we need?&lt;/p&gt;
+&lt;p&gt;Now, it wouldn&amp;rsquo;t be too hard to map or iterate through our template, replacing each instance of a particular symbol literal with the corresponding value given by the bindings. But notice that what we&amp;rsquo;re really doing is just manual variable substitution, something the compiler already knows how to do! Plus, if we started picking it apart by hand, the resulting code wouldn&amp;rsquo;t be directly portable to new templates. Is there a more general approach here?&lt;/p&gt;
 
-&lt;p&gt;We&amp;rsquo;d need some way of telling the compiler to take some part of a quoted form &amp;rsquo;less literally&amp;rsquo;; that is, take it as a variable reference (or function application) instead of a symbol-literal (or list-literal). Let&amp;rsquo;s call this new form unquote, which has the sugared representation ",".&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;d need some way of telling the compiler to take some part of a quoted form &amp;lsquo;less literally&amp;rsquo;; that is, take it as a variable reference (or function application) instead of a symbol- or list-literal. Let&amp;rsquo;s call this new form &lt;strong&gt;unquote&lt;/strong&gt;, which has the sugared representation &lt;strong&gt;,&lt;/strong&gt; (comma).&lt;/p&gt;
 
 &lt;p&gt;What we want:&lt;/p&gt;
 
@@ -460,7 +464,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Now, if you try this, you&amp;rsquo;ll see it doesn&amp;rsquo;t work. Why didn&amp;rsquo;t the language designers choose to make unquote work this way? First, remember that quote is a very core part of the language. Changing it for this kind of usage might have unintended consequences elsewhere. But also note that it limits our expressiveness. We&amp;rsquo;ve added a new form - unquote - to our language; that is, Racket code has a new bound symbol. But code is data; if unquote is code, we&amp;rsquo;d like to be able to represent code containing unquote as a literal using the quote form. But if every time we encounter an unquote we jump out of the quote form, this just doesn&amp;rsquo;t work; a quoted form will never evaluate to a form containing an unquote. That is, there is nothing we can do to produce the following &lt;em&gt;as output:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Now, if you try this, you&amp;rsquo;ll see it doesn&amp;rsquo;t work. Why didn&amp;rsquo;t the language designers choose to make unquote work this way? First, remember that quote is a very core part of the language. Changing it for this kind of usage might have unintended consequences elsewhere. But also note that it limits our expressiveness. We&amp;rsquo;ve added a new form - unquote - to our language; that is, Racket code has a new bound symbol. But code is data; if unquote is code, we&amp;rsquo;d like to be able to represent code containing &amp;rsquo;unquote as a symbol-literal. But if every time we encounter an unquote we jump out of the quote form, this just doesn&amp;rsquo;t work; a quoted form will never evaluate to a form containing an unquote. That is, there is nothing we can do to produce the following &lt;em&gt;as output:&lt;/em&gt;&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -487,7 +491,7 @@
       &lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;
     &lt;td class="code"&gt;
      &lt;div class="source"&gt;
-      &lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;&lt;a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit"&gt;&amp;gt;&lt;/a&gt;&lt;/span&gt; &lt;span class="o"&gt;'&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;&lt;a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit"&gt;if&lt;/a&gt;&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;a&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;b&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;'&lt;/span&gt;
+      &lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;&lt;a href="http://docs.racket-lang.org/reference/generic-numbers.html#(def._((quote._~23~25kernel)._~3e))" style="color: inherit"&gt;&amp;gt;&lt;/a&gt;&lt;/span&gt; &lt;span class="o"&gt;'&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;&lt;a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit"&gt;if&lt;/a&gt;&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;a&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;b&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="ss"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
@@ -544,7 +548,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Note that var-ref is not actually a form in Racket; it&amp;rsquo;s just my own shorthand. So now, in context, the first feature of Quote is that it allows us to refer to a symbol without it being interpreted as an identifier:&lt;/p&gt;
+&lt;p&gt;Note that var-ref is not actually a form in Racket; it&amp;rsquo;s just my own shorthand. So now, in context, the atomic case of quote is what allows us to refer to a symbol without it being implictly interpreted as a variable reference:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -598,9 +602,9 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;And a quoted symbol is a literal. Specifically, a symbol-literal. Quotation literalizes its input.&lt;/p&gt;
+&lt;p&gt;And a quoted symbol is a literal. Specifically, a symbol-literal. At the risk of repetition: Quotation literalizes its input.&lt;/p&gt;
 
-&lt;p&gt;The second feature of quote is that it offers a shorthand to express list literals. Consider that there are two main uses for lists in Racket. First, there are lists of data, constructed using the list constructor:&lt;/p&gt;
+&lt;p&gt;The non-atomic case for quote might seem a shorthand to express list-literals. And this is certainly a worthy feature! But there is another implicit operation linking here; our humble friend, function application. Consider that there are two central uses for lists in Racket. First, there are lists of data, constructed using the list constructor:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -636,7 +640,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The answer is that another implicit operation is at work here. In Racket, bare unquoted lists are interpreted as follows: First, a bare list is checked against a list of the base syntactic forms of the language; define, if, etc. If the bare list doesn&amp;rsquo;t match any of those forms, it is expanded as a function application:&lt;/p&gt;
+&lt;p&gt;In Racket source files, bare unquoted lists are interpreted as follows: First, a bare list is checked against a list of the base syntactic forms of the language; define, if, etc. If the bare list doesn&amp;rsquo;t match any of those forms, it is expanded into a function application:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -654,9 +658,9 @@
 
 &lt;p&gt;And 1 isn&amp;rsquo;t a function, so you get an error.&lt;/p&gt;
 
-&lt;p&gt;Just to be 100% clear, I&amp;rsquo;m not arguing that having all these implicit operations for commonly used forms is bad; it&amp;rsquo;s a virtual necessity for readable expression. The default context for understanding the meaning of code, the semantics, is the process of evaluation, so it makes perfect sense that we&amp;rsquo;d syntactically streamline the most frequently used tools of evaluation: variable reference and function application.&lt;/p&gt;
+&lt;p&gt;To be clear, I&amp;rsquo;m not arguing that having these implicit operations for commonly used forms is in any way a bad thing. It&amp;rsquo;s a virtual necessity for a readable language. The default context for understanding the meaning of code, the semantics, is provided by the process of evaluation. It makes perfect sense, then, that we&amp;rsquo;d syntactically streamline the most frequently used tools of evaluation: variable reference and function application.&lt;/p&gt;
 
-&lt;p&gt;But it&amp;rsquo;s also important that we remember that, in an evaluation-based context, these forms are there, and so another form is necessary in order to be able to refer to source code, or really any list-structured data in-and-of-itself, in a form which closely tracks with its expected appearance.&lt;/p&gt;
+&lt;p&gt;But it&amp;rsquo;s also important that we remember that, in an evaluative context, these forms are there, lurking behind the scene. Thus the quote form is necessary in order to be able to refer to source code, or really any list-structured data, in-and-of-itself, in a form which closely tracks with its appearance in the evaluative context.&lt;/p&gt;
 
 &lt;p&gt;In other words, the cost of implicit evaluation forms is explicit literalization forms for symbols and lists, and the quote form is how we cheat our way out of paying this cost.&lt;/p&gt;
 
@@ -736,9 +740,9 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The lesson here is that while implict operations enhance readability, which operations we want to make implicit depends on context. Quote allows us to open windows into a mirror world, embedding &amp;lsquo;literal&amp;rsquo; interludes into our &amp;lsquo;evaluative&amp;rsquo; context. Negotiating between the two requires that we are canny mental parsers, carefully considering the context to determine the meaning of a given symbol.&lt;/p&gt;
+&lt;p&gt;The lesson here is that while implicit operations enhance readability, which operations we want to make implicit depends on context. Quote allows us to open windows into a mirror world, embedding &lt;em&gt;literal interludes&lt;/em&gt; into an &lt;em&gt;evaluative context&lt;/em&gt;. Negotiating between the two requires that we are canny mental parsers, carefully considering the context to determine the meaning of a given symbol.&lt;/p&gt;
 
-&lt;p&gt;Next time we&amp;rsquo;ll look at expanding quote to describe related pieces of source code in terms of templates.&lt;/p&gt;
+&lt;p&gt;Next time we&amp;rsquo;ll look at expanding our notion of quotation to abstract source code through templates.&lt;/p&gt;
 
 &lt;p&gt;Next up: &lt;a href="http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-4-unquote.html"&gt;Quasiquotation Part 4: Unquote?&lt;/a&gt;&lt;/p&gt;</content></entry>
  <entry>
@@ -750,19 +754,17 @@
   <author>
    <name>disconcision</name></author>
   <content type="html">
-&lt;p&gt;An interlude: Implicit operations&lt;/p&gt;
-
-&lt;p&gt;You see implicit operations all the time in math notation, so often it&amp;rsquo;s easy to forget they&amp;rsquo;re there. In fact, the fact that we can (usually) forget them is kind of the point. Consider the following inoffensive term (in standard mathematical notation):&lt;/p&gt;
+&lt;p&gt;You see implicit operations all the time in math notation, so often that it&amp;rsquo;s easy to forget they&amp;rsquo;re there. In fact, the fact that we can (usually) forget them is kind of the point. Encapsulation, abstraction, information hiding, etc. etc. Consider the following inoffensive term (in standard mathematical notation):&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;f(10x)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;In words, this represents the application of some function f to ten times the value of a variable x. Straightforward, but I assert that in this term, white space - the space between the symbols - is overloaded, not once, not twice, but thrice, to represent three different implicit operations.&lt;/p&gt;
+&lt;p&gt;In words, this denotes the application of some function f to ten times the value of a variable x. Straightforward, but I assert that in this term, white space - the space between the symbols - is overloaded, not once, but thrice, to represent three different implicit operations:&lt;/p&gt;
 
 &lt;ol&gt;
  &lt;li&gt;
-  &lt;p&gt;The gap between the f and the first parenthesis represents function application (let&amp;rsquo;s call that &amp;lsquo;app&amp;rsquo;). Although this is perhaps the single most frequently used operation in mathematics, its simple existence is hardly even remarked on.&lt;/p&gt;&lt;/li&gt;
+  &lt;p&gt;The gap between the f and the first parenthesis represents function application (let&amp;rsquo;s call this &lt;strong&gt;app&lt;/strong&gt;). Although this is perhaps the single most frequently used operation in mathematics, its simple existence is hardly even remarked on; at least outside of a programming languages class.&lt;/p&gt;&lt;/li&gt;
  &lt;li&gt;
-  &lt;p&gt;The gap between the 1 and the 0 represents an operation which I&amp;rsquo;ll call &amp;lsquo;dec&amp;rsquo;, the contructor for decimal notation. This is a left-associative operation which means &amp;ldquo;multiply the left digit by 10 and add it to the value of the right&amp;rdquo;.&lt;/p&gt;&lt;/li&gt;
+  &lt;p&gt;The gap between the 1 and the 0 represents an operation which I&amp;rsquo;ll call &lt;strong&gt;dec&lt;/strong&gt;, the contructor for decimal notation. This is a left-associative binary operation which means &amp;ldquo;multiply the left argument (digit) by 10 and add it to the value of the right argument&amp;rdquo;.&lt;/p&gt;&lt;/li&gt;
  &lt;li&gt;
   &lt;p&gt;Finally, the gap between the 0 and the x represents regular multiplication.&lt;/p&gt;&lt;/li&gt;&lt;/ol&gt;
 
@@ -794,9 +796,9 @@
   <author>
    <name>disconcision</name></author>
   <content type="html">
-&lt;p&gt;Before there was Quasiquote, there was Quote. Quote is a fundamental part of every lispy language, including Racket. What does it do for us? It allows us to concisely represent s-expression-based data; in particular, source code. Specifically, it allows us to &lt;em&gt;literalize&lt;/em&gt; source code, by contextualizing what we &lt;em&gt;mean&lt;/em&gt; when we use &lt;em&gt;symbols&lt;/em&gt; and &lt;em&gt;lists&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Before there was &lt;strong&gt;quasiquote&lt;/strong&gt;, there was &lt;strong&gt;quote&lt;/strong&gt;. Quote is a fundamental part of every lispy language, including Racket. Quote allows us to concisely represent &lt;a href="https://igor.io/2012/12/06/sexpr.html"&gt;s-expression&lt;/a&gt;-based data; in particular, source code. Specifically, it allows us to &lt;em&gt;literalize&lt;/em&gt; source code by contextualizing what we &lt;em&gt;mean&lt;/em&gt; when we use &lt;em&gt;symbols&lt;/em&gt; and &lt;em&gt;lists&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;What we want to do is be able to represent source code &lt;em&gt;within&lt;/em&gt; source code. We need a method of representation, and the simplest way to represent a thing is just to present the thing itself. Unfortunately, this representation is already taken! Say we simply provide a piece of code:&lt;/p&gt;
+&lt;p&gt;Our goal is to be able to represent source code &lt;em&gt;within&lt;/em&gt; source code. The simplest way to represent a thing is just to present the thing itself. Unfortunately, this representation is already taken! Say we simply provide a piece of code:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -812,7 +814,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The standard semantic interpretation of stuff in a source file is that it&amp;rsquo;s something to be executed or evaluated. In other words, the representation above typically carries with it the implicit meaning &amp;ldquo;do this thing&amp;rdquo;; we&amp;rsquo;ll call this the &lt;em&gt;evaluative context&lt;/em&gt;. By contrast, if we wish to inhabit a more &lt;em&gt;literal context&lt;/em&gt; - to talk about the code in-itself - the most traditional approach is to consider it as a string; in other words, to &amp;ldquo;quote&amp;rdquo; it.&lt;/p&gt;
+&lt;p&gt;The standard semantics of &lt;em&gt;stuff&lt;/em&gt; in a source file is to interpret that &lt;em&gt;stuff&lt;/em&gt; as something to be executed or evaluated. In other words, the representation above typically carries with it the implicit meaning of &amp;ldquo;do this thing&amp;rdquo;; source code is usually read in the &lt;em&gt;context of evaluation&lt;/em&gt;. By contrast, if we wish to inhabit a more &lt;em&gt;literal context&lt;/em&gt; - to talk about the code syntax in-itself - the most traditional approach is to consider the source as a string; in other words, to &amp;ldquo;quote&amp;rdquo; it:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -828,7 +830,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Although almost all extant languages ultimately use strings of characters for their stored representations, this way of &lt;em&gt;literalizing&lt;/em&gt; source code is pretty bare-bones. Especially in the context of lispy languages, where programs are s-expression-based; that is, they take the form of lists, which are sequences of atoms and sublists. Lists are most prosaically represented via the &lt;em&gt;list constructor&lt;/em&gt;. Let&amp;rsquo;s rewrite the above string representation of the source as a list-constructor based representation:&lt;/p&gt;
+&lt;p&gt;Although almost all extant languages ultimately use strings of characters for their stored representations, this way of &lt;em&gt;literalizing&lt;/em&gt; source code is pretty bare-bones. Especially in the context of lispy languages, where programs explictly tree-structured via nested lists. In Racket, lists are most prosaically represented via the &lt;a href="https://docs.racket-lang.org/reference/pairs.html#%28def._%28%28quote._~23~25kernel%29._list%29%29"&gt;list constructor&lt;/a&gt;. Let&amp;rsquo;s rewrite the above string representation of the source as a list-constructor based representation:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -846,7 +848,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;This is&amp;hellip; not much of an improvement, to say the least. It is far more verbose, plus is still requires string representations for the atomic elements. or the case of &amp;ldquo;1&amp;rdquo;, which is a literal or bare value, it&amp;rsquo;s safe just to drop the quotes, since 1 evaluates to itself; (quote some-literal) is just some-literal:&lt;/p&gt;
+&lt;p&gt;This is&amp;hellip; not much of an improvement, to say the least. It is far more verbose, and it still requires string representations for the atomic elements. In the case of &amp;ldquo;1&amp;rdquo;, which is a literal (bare value), it&amp;rsquo;s safe just to drop the quotes. Since literals (including 1) are distinguished by the fact that they evaluate to themselves, we are reasonably safe equivocating between their evaluative and literal representations.&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -864,7 +866,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt; But we can&amp;rsquo;t just write &amp;ldquo;add1&amp;rdquo; without the quotes; lisps typically treat &amp;lsquo;bare symbols&amp;rsquo; as variable references. &amp;ldquo;add1&amp;rdquo; is a variable representing a function, and in the above representation we just want to make reference to that function, not have it expanded in-line. So at bare minimum, we need a way to distinguish symbols-as-variable-references forms symbols-as literals. To this effect, we introduce an operation called quote:&lt;/p&gt;
+&lt;p&gt; But we can&amp;rsquo;t just write &lt;strong&gt;add1&lt;/strong&gt; without the quotes; Racket typically treat &amp;lsquo;bare&amp;rsquo; symbols as variable references. Here, &lt;strong&gt;add1&lt;/strong&gt; is an identifier representing a unary function, and in the above literal representation we just want to &lt;em&gt;represent a reference&lt;/em&gt; to that function, not have it expanded in-line. So at minimum, we need a way to distinguish symbols-as-variable-references from symbols-as literals. To this effect, we introduce a syntactic form called &lt;strong&gt;quote&lt;/strong&gt;:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -882,7 +884,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt; Now, at this point it&amp;rsquo;s at least clear what we mean, though at the cost of almost completely sacrificing readability. Let&amp;rsquo;s try to recover it. First, we introduce the following abbreviation: &amp;rsquo;x, which expands to (quote x):&lt;/p&gt;
+&lt;p&gt; Now, at this point it&amp;rsquo;s at least clear what we mean, though at the cost of almost completely sacrificing readability. Let&amp;rsquo;s try to recover it! First, we introduce the following abbreviation: &lt;strong&gt;&amp;rsquo;x&lt;/strong&gt;, which expands to &lt;strong&gt;(quote x)&lt;/strong&gt;:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -916,7 +918,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;But what exactly would that mean? We need to decide what it means to quote a list; that is, to make a list-literal. What we need turns out to be simple. Quoting a list implies two things: one, the the bracketed structure is in fact a list (expands to a list constructor), and two, that the elements of that list are themselves quoted. For sublists, this is applied recursively. For symbols and literals, we&amp;rsquo;ve already shown what this means above. To be explicit, the above expression expands as follows:&lt;/p&gt;
+&lt;p&gt;But what exactly would that mean? We need to decide what it means to quote a list; that is, to make a list-literal. Luckily, it&amp;rsquo;s simple to define quote in a way that makes this work. Quoting a list will imply two things: First, a bracketed structure under a quote is in fact a list: it expands to a list constructor. Second, the elements of that list are themselves quoted. For sublists, this is applied recursively. For symbols and literals, we&amp;rsquo;ve already shown what this means above. To be explicit, the above expression expands as follows:&lt;/p&gt;
 
 &lt;div class="brush: racket"&gt;
  &lt;table class="sourcetable"&gt;
@@ -940,7 +942,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;And that&amp;rsquo;s really all there is to quote. Now it likely seems like we&amp;rsquo;ve gone a long way to get almost nothing at all. We can summarize what&amp;rsquo;s gone before as &amp;ldquo;if you want to refer to the code itself instead of its result under evaluation, stick a &amp;rsquo; in front of it&amp;rdquo;. This is mostly a fair assessment, but let&amp;rsquo;s more carefully examine what we&amp;rsquo;ve gained.&lt;/p&gt;
+&lt;p&gt;And that&amp;rsquo;s really all there is to quote. Now it likely seems like we&amp;rsquo;ve gone a long way to get almost nothing at all. We can summarize what&amp;rsquo;s gone before as &amp;ldquo;if you want to refer to the code itself instead of its result under evaluation, stick a &amp;rsquo; in front of it&amp;rdquo;. This is &lt;em&gt;almost&lt;/em&gt; a fair assessment, but let&amp;rsquo;s take a moment to carefully consider what we&amp;rsquo;ve gained.&lt;/p&gt;
 
 &lt;p&gt;Next up: &lt;a href="http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html"&gt;Quasiquotation Part 2: An interlude on implicit operations&lt;/a&gt;&lt;/p&gt;</content></entry>
  <entry>
@@ -952,7 +954,7 @@
   <author>
    <name>disconcision</name></author>
   <content type="html">
-&lt;p&gt;This is a mini-series of six entries which together introduce using quotation and pattern matching to represent and transform syntax in Racket. The focus is on quasiquotation; part 6 will assume you have a vague grasp of what pattern matching is, although I might fill in this gap later through a tutorial on implementing pattern matching.&lt;/p&gt;
+&lt;p&gt;This is a miniseries of six entries introducing quotation and pattern matching as mechanisms to represent and transform syntax. Some elementary Racket/Scheme experience is assumed. The focus is on quasiquotation; part 6 will assume you have a vague grasp of what pattern matching is, although I might fill in this gap later through a tutorial on implementing pattern matching.&lt;/p&gt;
 
 &lt;ol&gt;
  &lt;li&gt;&lt;a href="http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-1-quote.html"&gt;Quasiquotation Part 1: Quote&lt;/a&gt;&lt;/li&gt;

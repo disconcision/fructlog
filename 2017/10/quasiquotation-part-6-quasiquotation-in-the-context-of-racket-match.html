@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
     <title>Quasiquotation Part 6: Quasiquotation in the context of Racket/Match</title>
-    <meta name="description" content="A brief introduction to match::                     1 2              (match <target>     [<pattern> <template>] ...)     An individual match clause consists of a pattern and a template. The pattern is 'matched' against the template, either comparing sub-c...">
+    <meta name="description" content="A brief introduction to match::                     1 2              (match <target>     [<pattern> <template>] ...)     An individual match clause consists of a pattern and a template. The pattern is 'matched' against the template, either comparing patte...">
     <meta name="author"      content="disconcision">
     <meta name="keywords"    content="racket, Author: disconcision">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -109,13 +109,13 @@
 </td></tr></tbody></table>
 </div>
 
-<p>An individual match clause consists of a pattern and a template. The pattern is &lsquo;matched&rsquo; against the template, either comparing sub-constituents literal-to-literal, or binding literals to &lsquo;wildcard&rsquo; variables. The template is just regular racket code. If we use quasiquote/unquote in our template, it&rsquo;s going to work exactly as I&rsquo;ve described in the previous part. One common use for pattern matching in Racket is term rewriting and reduction; that is, parsing and evaluating code in languages which we ourselves define. This very often involves &lsquo;recognizing&rsquo; some pattern of code, and transforming it according to a template.</p>
+<p>An individual match clause consists of a pattern and a template. The pattern is &lsquo;matched&rsquo; against the template, either comparing pattern sub-constituents literal-to-literal, or binding literals to &lsquo;wildcard&rsquo; variables. The template is just regular racket code. If we use quasiquote/unquote in our template, it&rsquo;s going to work exactly as I&rsquo;ve described in the previous part. One common use for pattern matching in Racket is term rewriting and reduction; that is, parsing and evaluating code in domain-specific languages which we ourselves create. This very often involves &lsquo;recognizing&rsquo; some pattern of code, and transforming it into another according to a template.</p>
 
 <p>For code rewriting, we want to do two things: <em>destructure</em> nested lists representing our code according to patterns we specify, and then <em>restructure</em> those pieces according to templates we specify. Quasiquotation as described above provides a rich way to restructure; wouldn&rsquo;t it be nice if we could destucture our code in a way that is syntactically symmetric? That is, instead of <em>imperatively</em> specifying how to take apart and put together expressions using list operations, we <em>descriptively</em> illustrate the transformations themselves.</p>
 
 <h4 id="using-quasiquotation-to-destructure">Using Quasiquotation to Destructure:</h4>
 
-<p>Say we wanted to rewrite an &lsquo;if&rsquo; statement to swap the consequence and alternative. If we already captured the three components of our original &ldquo;if&rdquo; as variables a, b, and c, we&rsquo;d use quasiquotation to restructure our new &ldquo;if&rdquo; using `(if ,a ,c ,b).</p>
+<p>Say we wanted to rewrite an <em>if</em> form into an equivalent <em>cond</em>. If we already captured the three components of our original <em>if</em> as variables a, b, and c, we could use quasiquotation to restructure our new <em>cond</em> using `(cond [,a ,c] [else ,b]).</p>
 
 <p>So what we&rsquo;d like to write is something like this:</p>
 
@@ -130,14 +130,14 @@
     <td class="code">
      <div class="source">
       <pre><span></span><span class="p">(</span><span class="k"><a href="http://docs.racket-lang.org/reference/match.html#(form._((lib._racket/match..rkt)._match))" style="color: inherit">match</a></span> <span class="o">'</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="no">#t</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span><span class="o">'</span>
-<span class="p">[</span><span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">b</span> <span class="o">,</span><span class="ss">c</span><span class="p">)</span> <span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">c</span> <span class="o">,</span><span class="ss">b</span><span class="p">)])</span>
+<span class="p">[</span><span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((quote._~23~25kernel)._if))" style="color: inherit">if</a></span> <span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">b</span> <span class="o">,</span><span class="ss">c</span><span class="p">)</span> <span class="o">`</span><span class="p">(</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((lib._racket/private/letstx-scheme..rkt)._cond))" style="color: inherit">cond</a></span> <span class="p">[</span><span class="o">,</span><span class="ss">a</span> <span class="o">,</span><span class="ss">c</span><span class="p">]</span> <span class="p">[</span><span class="ss"><a href="http://docs.racket-lang.org/reference/if.html#(form._((lib._racket/private/letstx-scheme..rkt)._else))" style="color: inherit">else</a></span> <span class="o">,</span><span class="ss">b</span><span class="p">])])</span>
 </pre></div>
 </td></tr></tbody></table>
 </div>
 
 <p>While it&rsquo;s not hard to intuit what&rsquo;s going on in the left-hand side, let&rsquo;s be totally explicit about what&rsquo;s going on. Remember, &lsquo;destructuring&rsquo; is something new here; just because we want to do it using the same syntax as regular quasiquotation doesn&rsquo;t mean the semantics is going to be the same, although as we&rsquo;ll see it&rsquo;s very close.</p>
 
-<p>First, we should be explicit about the way the match form treats regular, non-quoted data. Remember that in regular racket code, a symbol (say, a) appearing outside a quote-type form and outside a binding form is treated as a(n implicit) variable reference form <strong>(var-ref a)</strong>. In the left-hand side of a match template, on the other hand, a &lsquo;bare symbol&rsquo; is treated as an in-line <em>variable binding form</em>, <strong>(var-bind a)</strong>. Remember that var-ref and var-bind are my shorthands here; they won&rsquo;t work within Racket. However, if you want to be explicit about binding forms in your patterns, you can use the var form. That is, both these matches are precisely equivalent:</p>
+<p>First, we should be explicit about the way the match form treats regular, non-quoted data. Remember that in regular racket code, a symbol (say, <strong>a</strong>) appearing outside a quote-type form and outside a binding form is treated as a(n implicit) variable reference form <strong>(var-ref a)</strong>. In the left-hand side of a match template, on the other hand, a &lsquo;bare symbol&rsquo; is treated as an <em>in-line variable binding form</em>, <strong>(var-bind a)</strong>. Remember that var-ref and var-bind are my shorthands here; they won&rsquo;t work within Racket. However, if you want to be explicit about in-line binding forms in your patterns, you can use the var form. That is, both these matches are equivalent:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -177,13 +177,13 @@
 </td></tr></tbody></table>
 </div>
 
-<p>In the first case, the first a is at quasiquote level 1, so it is interpreted as the symbol-literal &rsquo;a. This is not the same as the literal 3, so the match fails. The second a, contained in the unquote, is at quasiquote level, so it would be interpreted as a binding form, if it hadn&rsquo;t been so rudely interrupted by the previous mismatch. The second example finally gives it it&rsquo;s chance to shine. On the template side, the first a is at quasiquote level 1, and so is treated as a literal; the second is at level 0 and so is treated as variable reference form.</p>
+<p>In the first case, the first <strong>a</strong> is at quasiquote level 1, so it is interpreted as the symbol-literal <strong>&rsquo;a</strong>. This is not the same as the literal <strong>3</strong>, so the match fails. The second <strong>a</strong>, contained in the unquote, is at quasiquote level 0, so it would be interpreted as a binding form, if it hadn&rsquo;t been so rudely interrupted by the previous mismatch. The second example finally gives it its chance to shine. On the template side, the first <strong>a</strong> is at quasiquote level 1, and so is treated as a literal; the second is at level 0 and so is treated as variable reference form.</p>
 
-<p>This example is nearly fully illustrative; aside from the fact that the pattern matches and binds (destructures) and the template constructs and references (restructures), the semantics of quasiquote are almost fully symmetric, in a similar sense of symmetry as between var-bind and var-ref.</p>
+<p>This example is nearly fully illustrative; aside from the fact that the pattern matches and binds (destructures) and the template constructs and references (restructures), the semantics of quasiquote are almost fully symmetric, in a similar sense as the symmetry as between var-bind and var-ref.</p>
 
 <h4 id="levels-of-quasiquotation-within-match">Levels of quasiquotation within match</h4>
 
-<p>The only real difference is that pattern-side quasiquotation doesn&rsquo;t care about higher levels of quasiquote. That is, we don&rsquo;t need to (and in fact, can&rsquo;t) use multiple unquotes to &rsquo;escape from&rsquo; multiple quasiquotations. An unquote always resets the quasiquotation level to 0.</p>
+<p>The only real difference is that pattern-side quasiquotation doesn&rsquo;t care about higher levels of quasiquote. That is, we don&rsquo;t need to (and in fact, can&rsquo;t) use multiple unquotes to &rsquo;escape from&rsquo; multiple quasiquotations. An unquote always resets the quasiquotation level to 0:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -203,7 +203,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>I&rsquo;m not sure exactly why this behavior was chosen, but it&rsquo;s likely because there&rsquo;s no obvious use case for multiple levels of nesting in a pattern, since the pattern itself is not returned; after matching succeeds or fails, all that matters is the bindings that were made. Here&rsquo;s my (failed) attempt to find a use for multi-level quasiquotation in patterns:</p>
+<p>I&rsquo;m not completely cetain why this behavior was chosen, but it seems likely because there&rsquo;s no obvious use case for multiple levels of nesting in a pattern. Since the pattern itself is not returned, after matching succeeds or fails, all that matters is the bindings that were made. Here&rsquo;s my (failed) attempt to find a use for multi-level quasiquotation in patterns:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -223,7 +223,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>What if we wanted to rewrite the above to extract just the <em>2</em>, without the leading <em>unquote</em>? Why can&rsquo;t we just:</p>
+<p>What if we wanted to rewrite the above to extract just the <strong>2</strong>, without the leading <strong>unquote</strong>? Why can&rsquo;t we just:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">

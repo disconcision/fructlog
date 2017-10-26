@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
     <title>Quasiquotation Part 1: Quote</title>
-    <meta name="description" content="Before there was Quasiquote, there was Quote. Quote is a fundamental part of every lispy language, including Racket. What does it do for us? It allows us to concisely represent s-expression-based data; in particular, source code. Specifically, it allows u...">
+    <meta name="description" content="Before there was **quasiquote**, there was **quote**. Quote is a fundamental part of every lispy language, including Racket. Quote allows us to concisely represent s-expression-based data; in particular, source code. Specifically, it allows us to _literal...">
     <meta name="author"      content="disconcision">
     <meta name="keywords"    content="racket, Author: disconcision">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -91,9 +91,9 @@
     <p class='authors'>By: <span class="authors"><a href="/fructlog/tags/Author-disconcision.html">disconcision</a></span></p>
   </header>
 
-<p>Before there was Quasiquote, there was Quote. Quote is a fundamental part of every lispy language, including Racket. What does it do for us? It allows us to concisely represent s-expression-based data; in particular, source code. Specifically, it allows us to <em>literalize</em> source code, by contextualizing what we <em>mean</em> when we use <em>symbols</em> and <em>lists</em>.</p>
+<p>Before there was <strong>quasiquote</strong>, there was <strong>quote</strong>. Quote is a fundamental part of every lispy language, including Racket. Quote allows us to concisely represent <a href="https://igor.io/2012/12/06/sexpr.html">s-expression</a>-based data; in particular, source code. Specifically, it allows us to <em>literalize</em> source code by contextualizing what we <em>mean</em> when we use <em>symbols</em> and <em>lists</em>.</p>
 
-<p>What we want to do is be able to represent source code <em>within</em> source code. We need a method of representation, and the simplest way to represent a thing is just to present the thing itself. Unfortunately, this representation is already taken! Say we simply provide a piece of code:</p>
+<p>Our goal is to be able to represent source code <em>within</em> source code. The simplest way to represent a thing is just to present the thing itself. Unfortunately, this representation is already taken! Say we simply provide a piece of code:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -109,7 +109,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>The standard semantic interpretation of stuff in a source file is that it&rsquo;s something to be executed or evaluated. In other words, the representation above typically carries with it the implicit meaning &ldquo;do this thing&rdquo;; we&rsquo;ll call this the <em>evaluative context</em>. By contrast, if we wish to inhabit a more <em>literal context</em> - to talk about the code in-itself - the most traditional approach is to consider it as a string; in other words, to &ldquo;quote&rdquo; it.</p>
+<p>The standard semantics of <em>stuff</em> in a source file is to interpret that <em>stuff</em> as something to be executed or evaluated. In other words, the representation above typically carries with it the implicit meaning of &ldquo;do this thing&rdquo;; source code is usually read in the <em>context of evaluation</em>. By contrast, if we wish to inhabit a more <em>literal context</em> - to talk about the code syntax in-itself - the most traditional approach is to consider the source as a string; in other words, to &ldquo;quote&rdquo; it:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -125,7 +125,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>Although almost all extant languages ultimately use strings of characters for their stored representations, this way of <em>literalizing</em> source code is pretty bare-bones. Especially in the context of lispy languages, where programs are s-expression-based; that is, they take the form of lists, which are sequences of atoms and sublists. Lists are most prosaically represented via the <em>list constructor</em>. Let&rsquo;s rewrite the above string representation of the source as a list-constructor based representation:</p>
+<p>Although almost all extant languages ultimately use strings of characters for their stored representations, this way of <em>literalizing</em> source code is pretty bare-bones. Especially in the context of lispy languages, where programs explictly tree-structured via nested lists. In Racket, lists are most prosaically represented via the <a href="https://docs.racket-lang.org/reference/pairs.html#%28def._%28%28quote._~23~25kernel%29._list%29%29">list constructor</a>. Let&rsquo;s rewrite the above string representation of the source as a list-constructor based representation:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -143,7 +143,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>This is&hellip; not much of an improvement, to say the least. It is far more verbose, plus is still requires string representations for the atomic elements. or the case of &ldquo;1&rdquo;, which is a literal or bare value, it&rsquo;s safe just to drop the quotes, since 1 evaluates to itself; (quote some-literal) is just some-literal:</p>
+<p>This is&hellip; not much of an improvement, to say the least. It is far more verbose, and it still requires string representations for the atomic elements. In the case of &ldquo;1&rdquo;, which is a literal (bare value), it&rsquo;s safe just to drop the quotes. Since literals (including 1) are distinguished by the fact that they evaluate to themselves, we are reasonably safe equivocating between their evaluative and literal representations.</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -161,7 +161,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p> But we can&rsquo;t just write &ldquo;add1&rdquo; without the quotes; lisps typically treat &lsquo;bare symbols&rsquo; as variable references. &ldquo;add1&rdquo; is a variable representing a function, and in the above representation we just want to make reference to that function, not have it expanded in-line. So at bare minimum, we need a way to distinguish symbols-as-variable-references forms symbols-as literals. To this effect, we introduce an operation called quote:</p>
+<p> But we can&rsquo;t just write <strong>add1</strong> without the quotes; Racket typically treat &lsquo;bare&rsquo; symbols as variable references. Here, <strong>add1</strong> is an identifier representing a unary function, and in the above literal representation we just want to <em>represent a reference</em> to that function, not have it expanded in-line. So at minimum, we need a way to distinguish symbols-as-variable-references from symbols-as literals. To this effect, we introduce a syntactic form called <strong>quote</strong>:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -179,7 +179,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p> Now, at this point it&rsquo;s at least clear what we mean, though at the cost of almost completely sacrificing readability. Let&rsquo;s try to recover it. First, we introduce the following abbreviation: &rsquo;x, which expands to (quote x):</p>
+<p> Now, at this point it&rsquo;s at least clear what we mean, though at the cost of almost completely sacrificing readability. Let&rsquo;s try to recover it! First, we introduce the following abbreviation: <strong>&rsquo;x</strong>, which expands to <strong>(quote x)</strong>:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -213,7 +213,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>But what exactly would that mean? We need to decide what it means to quote a list; that is, to make a list-literal. What we need turns out to be simple. Quoting a list implies two things: one, the the bracketed structure is in fact a list (expands to a list constructor), and two, that the elements of that list are themselves quoted. For sublists, this is applied recursively. For symbols and literals, we&rsquo;ve already shown what this means above. To be explicit, the above expression expands as follows:</p>
+<p>But what exactly would that mean? We need to decide what it means to quote a list; that is, to make a list-literal. Luckily, it&rsquo;s simple to define quote in a way that makes this work. Quoting a list will imply two things: First, a bracketed structure under a quote is in fact a list: it expands to a list constructor. Second, the elements of that list are themselves quoted. For sublists, this is applied recursively. For symbols and literals, we&rsquo;ve already shown what this means above. To be explicit, the above expression expands as follows:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -237,7 +237,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>And that&rsquo;s really all there is to quote. Now it likely seems like we&rsquo;ve gone a long way to get almost nothing at all. We can summarize what&rsquo;s gone before as &ldquo;if you want to refer to the code itself instead of its result under evaluation, stick a &rsquo; in front of it&rdquo;. This is mostly a fair assessment, but let&rsquo;s more carefully examine what we&rsquo;ve gained.</p>
+<p>And that&rsquo;s really all there is to quote. Now it likely seems like we&rsquo;ve gone a long way to get almost nothing at all. We can summarize what&rsquo;s gone before as &ldquo;if you want to refer to the code itself instead of its result under evaluation, stick a &rsquo; in front of it&rdquo;. This is <em>almost</em> a fair assessment, but let&rsquo;s take a moment to carefully consider what we&rsquo;ve gained.</p>
 
 <p>Next up: <a href="http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html">Quasiquotation Part 2: An interlude on implicit operations</a></p>
   <footer>

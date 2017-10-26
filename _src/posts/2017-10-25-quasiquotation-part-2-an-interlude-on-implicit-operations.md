@@ -3,19 +3,17 @@
     Tags: racket
     Authors: disconcision
 
-An interlude: Implicit operations
-
-You see implicit operations all the time in math notation, so often it's easy to forget they're there. In fact, the fact that we can (usually) forget them is kind of the point. Consider the following inoffensive term (in standard mathematical notation):
+You see implicit operations all the time in math notation, so often that it's easy to forget they're there. In fact, the fact that we can (usually) forget them is kind of the point. Encapsulation, abstraction, information hiding, etc. etc. Consider the following inoffensive term (in standard mathematical notation):
 
 ```
 f(10x)
 ```
 
-In words, this represents the application of some function f to ten times the value of a variable x. Straightforward, but I assert that in this term, white space - the space between the symbols - is overloaded, not once, not twice, but thrice, to represent three different implicit operations.
+In words, this denotes the application of some function f to ten times the value of a variable x. Straightforward, but I assert that in this term, white space - the space between the symbols - is overloaded, not once, but thrice, to represent three different implicit operations:
 
-1. The gap between the f and the first parenthesis represents function application (let's call that 'app'). Although this is perhaps the single most frequently used operation in mathematics, its simple existence is hardly even remarked on.
+1. The gap between the f and the first parenthesis represents function application (let's call this **app**). Although this is perhaps the single most frequently used operation in mathematics, its simple existence is hardly even remarked on; at least outside of a programming languages class.
 
-2. The gap between the 1 and the 0 represents an operation which I'll call 'dec', the contructor for decimal notation. This is a left-associative operation which means "multiply the left digit by 10 and add it to the value of the right".
+2. The gap between the 1 and the 0 represents an operation which I'll call **dec**, the contructor for decimal notation. This is a left-associative binary operation which means "multiply the left argument (digit) by 10 and add it to the value of the right argument".
 
 3. Finally, the gap between the 0 and the x represents regular multiplication.
 

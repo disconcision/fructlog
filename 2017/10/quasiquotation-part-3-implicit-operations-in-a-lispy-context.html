@@ -131,7 +131,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>Note that var-ref is not actually a form in Racket; it&rsquo;s just my own shorthand. So now, in context, the first feature of Quote is that it allows us to refer to a symbol without it being interpreted as an identifier:</p>
+<p>Note that var-ref is not actually a form in Racket; it&rsquo;s just my own shorthand. So now, in context, the atomic case of quote is what allows us to refer to a symbol without it being implictly interpreted as a variable reference:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -185,9 +185,9 @@
 </td></tr></tbody></table>
 </div>
 
-<p>And a quoted symbol is a literal. Specifically, a symbol-literal. Quotation literalizes its input.</p>
+<p>And a quoted symbol is a literal. Specifically, a symbol-literal. At the risk of repetition: Quotation literalizes its input.</p>
 
-<p>The second feature of quote is that it offers a shorthand to express list literals. Consider that there are two main uses for lists in Racket. First, there are lists of data, constructed using the list constructor:</p>
+<p>The non-atomic case for quote might seem a shorthand to express list-literals. And this is certainly a worthy feature! But there is another implicit operation linking here; our humble friend, function application. Consider that there are two central uses for lists in Racket. First, there are lists of data, constructed using the list constructor:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -223,7 +223,7 @@
 </td></tr></tbody></table>
 </div>
 
-<p>The answer is that another implicit operation is at work here. In Racket, bare unquoted lists are interpreted as follows: First, a bare list is checked against a list of the base syntactic forms of the language; define, if, etc. If the bare list doesn&rsquo;t match any of those forms, it is expanded as a function application:</p>
+<p>In Racket source files, bare unquoted lists are interpreted as follows: First, a bare list is checked against a list of the base syntactic forms of the language; define, if, etc. If the bare list doesn&rsquo;t match any of those forms, it is expanded into a function application:</p>
 
 <div class="brush: racket">
  <table class="sourcetable">
@@ -241,9 +241,9 @@
 
 <p>And 1 isn&rsquo;t a function, so you get an error.</p>
 
-<p>Just to be 100% clear, I&rsquo;m not arguing that having all these implicit operations for commonly used forms is bad; it&rsquo;s a virtual necessity for readable expression. The default context for understanding the meaning of code, the semantics, is the process of evaluation, so it makes perfect sense that we&rsquo;d syntactically streamline the most frequently used tools of evaluation: variable reference and function application.</p>
+<p>To be clear, I&rsquo;m not arguing that having these implicit operations for commonly used forms is in any way a bad thing. It&rsquo;s a virtual necessity for a readable language. The default context for understanding the meaning of code, the semantics, is provided by the process of evaluation. It makes perfect sense, then, that we&rsquo;d syntactically streamline the most frequently used tools of evaluation: variable reference and function application.</p>
 
-<p>But it&rsquo;s also important that we remember that, in an evaluation-based context, these forms are there, and so another form is necessary in order to be able to refer to source code, or really any list-structured data in-and-of-itself, in a form which closely tracks with its expected appearance.</p>
+<p>But it&rsquo;s also important that we remember that, in an evaluative context, these forms are there, lurking behind the scene. Thus the quote form is necessary in order to be able to refer to source code, or really any list-structured data, in-and-of-itself, in a form which closely tracks with its appearance in the evaluative context.</p>
 
 <p>In other words, the cost of implicit evaluation forms is explicit literalization forms for symbols and lists, and the quote form is how we cheat our way out of paying this cost.</p>
 
@@ -323,9 +323,9 @@
 </td></tr></tbody></table>
 </div>
 
-<p>The lesson here is that while implict operations enhance readability, which operations we want to make implicit depends on context. Quote allows us to open windows into a mirror world, embedding &lsquo;literal&rsquo; interludes into our &lsquo;evaluative&rsquo; context. Negotiating between the two requires that we are canny mental parsers, carefully considering the context to determine the meaning of a given symbol.</p>
+<p>The lesson here is that while implicit operations enhance readability, which operations we want to make implicit depends on context. Quote allows us to open windows into a mirror world, embedding <em>literal interludes</em> into an <em>evaluative context</em>. Negotiating between the two requires that we are canny mental parsers, carefully considering the context to determine the meaning of a given symbol.</p>
 
-<p>Next time we&rsquo;ll look at expanding quote to describe related pieces of source code in terms of templates.</p>
+<p>Next time we&rsquo;ll look at expanding our notion of quotation to abstract source code through templates.</p>
 
 <p>Next up: <a href="http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-4-unquote.html">Quasiquotation Part 4: Unquote?</a></p>
   <footer>

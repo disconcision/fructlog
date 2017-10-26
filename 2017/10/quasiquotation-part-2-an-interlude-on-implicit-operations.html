@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
     <title>Quasiquotation Part 2: An interlude on implicit operations</title>
-    <meta name="description" content="An interlude: Implicit operations  You see implicit operations all the time in math notation, so often it's easy to forget they're there. In fact, the fact that we can (usually) forget them is kind of the point. Consider the following inoffensive term (in...">
+    <meta name="description" content="You see implicit operations all the time in math notation, so often that it's easy to forget they're there. In fact, the fact that we can (usually) forget them is kind of the point. Encapsulation, abstraction, information hiding, etc. etc. Consider the fo...">
     <meta name="author"      content="disconcision">
     <meta name="keywords"    content="racket, Author: disconcision">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -91,19 +91,17 @@
     <p class='authors'>By: <span class="authors"><a href="/fructlog/tags/Author-disconcision.html">disconcision</a></span></p>
   </header>
 
-<p>An interlude: Implicit operations</p>
-
-<p>You see implicit operations all the time in math notation, so often it&rsquo;s easy to forget they&rsquo;re there. In fact, the fact that we can (usually) forget them is kind of the point. Consider the following inoffensive term (in standard mathematical notation):</p>
+<p>You see implicit operations all the time in math notation, so often that it&rsquo;s easy to forget they&rsquo;re there. In fact, the fact that we can (usually) forget them is kind of the point. Encapsulation, abstraction, information hiding, etc. etc. Consider the following inoffensive term (in standard mathematical notation):</p>
 
 <pre><code>f(10x)</code></pre>
 
-<p>In words, this represents the application of some function f to ten times the value of a variable x. Straightforward, but I assert that in this term, white space - the space between the symbols - is overloaded, not once, not twice, but thrice, to represent three different implicit operations.</p>
+<p>In words, this denotes the application of some function f to ten times the value of a variable x. Straightforward, but I assert that in this term, white space - the space between the symbols - is overloaded, not once, but thrice, to represent three different implicit operations:</p>
 
 <ol>
  <li>
-  <p>The gap between the f and the first parenthesis represents function application (let&rsquo;s call that &lsquo;app&rsquo;). Although this is perhaps the single most frequently used operation in mathematics, its simple existence is hardly even remarked on.</p></li>
+  <p>The gap between the f and the first parenthesis represents function application (let&rsquo;s call this <strong>app</strong>). Although this is perhaps the single most frequently used operation in mathematics, its simple existence is hardly even remarked on; at least outside of a programming languages class.</p></li>
  <li>
-  <p>The gap between the 1 and the 0 represents an operation which I&rsquo;ll call &lsquo;dec&rsquo;, the contructor for decimal notation. This is a left-associative operation which means &ldquo;multiply the left digit by 10 and add it to the value of the right&rdquo;.</p></li>
+  <p>The gap between the 1 and the 0 represents an operation which I&rsquo;ll call <strong>dec</strong>, the contructor for decimal notation. This is a left-associative binary operation which means &ldquo;multiply the left argument (digit) by 10 and add it to the value of the right argument&rdquo;.</p></li>
  <li>
   <p>Finally, the gap between the 0 and the x represents regular multiplication.</p></li></ol>
 
