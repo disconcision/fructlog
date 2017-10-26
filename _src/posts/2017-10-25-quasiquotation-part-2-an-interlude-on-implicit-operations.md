@@ -27,4 +27,4 @@ Even though we rarely talk about these operations, especially the first two, the
 
 Ugly and inconvenient, but at least it's clear exactly what we mean.
 
-Next up: [Quasiquotation Part 3: Implicit Operations in a Lispy Context](2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html)
+Next up: [Quasiquotation Part 3: Implicit Operations in a Lispy Context](http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-3-implicit-operations-in-a-lispy-context.html)

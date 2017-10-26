@@ -4,8 +4,8 @@
 ;; in frog/params.
 (define/contract (init)
   (-> any)
-  (current-uri-prefix "/fructlog")
-  #;(current-scheme/host "http://disconcision.github.io/fructlog")
+  (current-uri-prefix "/fructlog/")
+  (current-scheme/host "http://disconcision.github.io/fructlog")
   (current-title "fructlog")  
   (current-author "disconcision"))
 

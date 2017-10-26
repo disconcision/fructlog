@@ -63,4 +63,4 @@ But what exactly would that mean? We need to decide what it means to quote a lis
 
 And that's really all there is to quote. Now it likely seems like we've gone a long way to get almost nothing at all. We can summarize what's gone before as "if you want to refer to the code itself instead of its result under evaluation, stick a ' in front of it". This is mostly a fair assessment, but let's more carefully examine what we've gained.
 
-Next up: [Quasiquotation Part 2: An interlude on implicit operations](2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html)
+Next up: [Quasiquotation Part 2: An interlude on implicit operations](http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-2-an-interlude-on-implicit-operations.html)

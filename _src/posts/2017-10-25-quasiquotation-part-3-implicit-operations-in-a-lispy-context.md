@@ -106,4 +106,4 @@ The lesson here is that while implict operations enhance readability, which oper
 
 Next time we'll look at expanding quote to describe related pieces of source code in terms of templates.
 
-Next up: [Quasiquotation Part 4: Unquote?](2017/10/quasiquotation-part-4-unquote.html)
+Next up: [Quasiquotation Part 4: Unquote?](http://disconcision.github.io/fructlog/2017/10/quasiquotation-part-4-unquote.html)
